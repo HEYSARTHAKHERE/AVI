@@ -1,9 +1,46 @@
 import React, { createContext, useContext, useEffect, useState, useMemo, useCallback } from 'react';
-import { User, Session } from '@supabase/supabase-js';
-import { supabase, isSupabaseConfigured, getProfileById, saveOnboardingProfile } from '../lib/supabase/client';
+import {
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  signOut as firebaseSignOut,
+  sendPasswordResetEmail,
+  updatePassword as firebaseUpdatePassword,
+  updateProfile,
+  signInWithPopup,
+  GoogleAuthProvider,
+  User as FirebaseUser,
+} from 'firebase/auth';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { auth, firestore, googleAuthProvider, setCachedAccessToken } from '../lib/firebase';
 import { DbProfile, AuthStateStatus, OnboardingData } from '../types';
-import { auth, googleAuthProvider, setCachedAccessToken } from '../lib/firebase';
-import { signInWithPopup, GoogleAuthProvider, signOut as firebaseSignOut } from 'firebase/auth';
+
+export interface User {
+  id: string;
+  uid: string;
+  email: string | null;
+  emailVerified?: boolean;
+  displayName?: string | null;
+  photoURL?: string | null;
+  app_metadata?: Record<string, any>;
+  user_metadata?: {
+    full_name?: string;
+    username?: string;
+    avatar_url?: string | null;
+    onboarding_completed?: boolean;
+    role?: 'creator' | 'brand' | 'admin';
+    [key: string]: any;
+  };
+  aud?: string;
+  created_at?: string;
+}
+
+export type Session = {
+  access_token?: string;
+  token_type?: string;
+  expires_in?: number;
+  user?: User;
+} | null;
 
 interface SignUpParams {
   email: string;
@@ -42,8 +79,36 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-// Local storage key for fallback/demo session persistence when running preview without active DB
-const DEMO_SESSION_KEY = 'kollavo_active_session_demo';
+function formatFirebaseAuthError(error: any): string {
+  if (!error) return 'An unexpected error occurred.';
+  const code = error.code || '';
+  switch (code) {
+    case 'auth/email-already-in-use':
+      return 'An account already exists with this email address. Please log in.';
+    case 'auth/invalid-email':
+      return 'Please enter a valid email address.';
+    case 'auth/operation-not-allowed':
+      return 'Email/password sign-in is not enabled. Please contact support.';
+    case 'auth/weak-password':
+      return 'Password should be at least 6 characters.';
+    case 'auth/user-disabled':
+      return 'This user account has been deactivated.';
+    case 'auth/user-not-found':
+    case 'auth/wrong-password':
+    case 'auth/invalid-credential':
+      return 'Invalid email or password. Please verify your credentials.';
+    case 'auth/popup-closed-by-user':
+      return 'Sign-in popup was closed before completion.';
+    case 'auth/popup-blocked':
+      return 'Popup was blocked by your browser. Please allow popups for this site.';
+    case 'auth/network-request-failed':
+      return 'Network connection error. Please verify your internet connection.';
+    case 'auth/too-many-requests':
+      return 'Access temporarily blocked due to multiple failed attempts. Please try again later.';
+    default:
+      return error.message || 'Authentication failed. Please try again.';
+  }
+}
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
@@ -55,6 +120,286 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const clearError = useCallback(() => setError(null), []);
 
+  // Fetch or bootstrap profile document from Firestore
+  const fetchAndSetProfile = useCallback(async (fbUser: FirebaseUser): Promise<DbProfile> => {
+    try {
+      const userDocRef = doc(firestore, 'users', fbUser.uid);
+      const snap = await getDoc(userDocRef);
+
+      if (snap.exists()) {
+        const data = snap.data();
+        const loadedProfile: DbProfile = {
+          id: fbUser.uid,
+          username: data.username || fbUser.email?.split('@')[0] || 'creator',
+          full_name: data.full_name || data.fullName || fbUser.displayName || 'Creator',
+          avatar_url: data.avatar_url || data.avatarUrl || fbUser.photoURL || null,
+          bio: data.bio || null,
+          category: data.category || (data.categories?.[0]) || 'Fashion',
+          categories: data.categories || ['Fashion'],
+          location: data.location || null,
+          is_public: data.is_public !== undefined ? data.is_public : true,
+          onboarding_completed: Boolean(data.onboarding_completed),
+          created_at: data.created_at || fbUser.metadata?.creationTime || new Date().toISOString(),
+          updated_at: data.updated_at || new Date().toISOString(),
+        };
+
+        setProfile(loadedProfile);
+        if (data.role && (data.role === 'creator' || data.role === 'brand' || data.role === 'admin')) {
+          setActiveRole(data.role);
+        }
+        return loadedProfile;
+      } else {
+        // Bootstrap initial user doc in Firestore
+        const defaultUsername = (fbUser.email ? fbUser.email.split('@')[0] : 'creator')
+          .toLowerCase()
+          .replace(/[^a-z0-9_]/g, '');
+        const defaultName = fbUser.displayName || 'Creator';
+
+        const initialProfile: DbProfile = {
+          id: fbUser.uid,
+          username: defaultUsername,
+          full_name: defaultName,
+          avatar_url: fbUser.photoURL || null,
+          bio: 'Verified creator on Kollavo.',
+          category: 'Fashion',
+          categories: ['Fashion'],
+          location: 'Global',
+          is_public: true,
+          onboarding_completed: false,
+          created_at: fbUser.metadata?.creationTime || new Date().toISOString(),
+          updated_at: new Date().toISOString(),
+        };
+
+        try {
+          await setDoc(userDocRef, {
+            id: fbUser.uid,
+            email: fbUser.email,
+            username: defaultUsername,
+            full_name: defaultName,
+            avatar_url: fbUser.photoURL || null,
+            role: 'creator',
+            onboarding_completed: false,
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString(),
+          });
+
+          // Bootstrap public creator profile
+          const creatorDocRef = doc(firestore, 'creator_profiles', fbUser.uid);
+          await setDoc(creatorDocRef, {
+            id: fbUser.uid,
+            creatorUid: fbUser.uid,
+            username: defaultUsername,
+            fullName: defaultName,
+            avatarUrl: fbUser.photoURL || null,
+            headline: 'Visual Creator & Collaborator',
+            bio: 'Verified creator on Kollavo.',
+            category: 'Fashion',
+            verified: true,
+            featuredRate: 1200,
+            completionPercentage: 50,
+            isPublic: true,
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString(),
+          });
+        } catch (dbErr) {
+          console.warn('Initial profile doc bootstrap warning:', dbErr);
+        }
+
+        setProfile(initialProfile);
+        return initialProfile;
+      }
+    } catch (err) {
+      console.warn('Profile fetch note (using fallback):', err);
+      const fallback: DbProfile = {
+        id: fbUser.uid,
+        username: fbUser.email?.split('@')[0] || 'creator',
+        full_name: fbUser.displayName || 'Creator',
+        avatar_url: fbUser.photoURL || null,
+        bio: null,
+        category: 'Fashion',
+        categories: ['Fashion'],
+        location: null,
+        is_public: true,
+        onboarding_completed: false,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
+      };
+      setProfile(fallback);
+      return fallback;
+    }
+  }, []);
+
+  // Primary Firebase Auth Observer
+  useEffect(() => {
+    let isMounted = true;
+
+    const unsubscribe = onAuthStateChanged(auth, async (fbUser: FirebaseUser | null) => {
+      if (!isMounted) return;
+
+      if (fbUser) {
+        let idToken: string | undefined;
+        try {
+          idToken = await fbUser.getIdToken();
+        } catch {}
+
+        const authUser: User = {
+          id: fbUser.uid,
+          uid: fbUser.uid,
+          email: fbUser.email,
+          emailVerified: fbUser.emailVerified,
+          displayName: fbUser.displayName,
+          photoURL: fbUser.photoURL,
+          app_metadata: {},
+          user_metadata: {
+            full_name: fbUser.displayName || 'Creator',
+            username: fbUser.email ? fbUser.email.split('@')[0] : 'creator',
+            avatar_url: fbUser.photoURL,
+            onboarding_completed: false,
+            role: 'creator',
+          },
+          aud: 'authenticated',
+          created_at: fbUser.metadata?.creationTime || new Date().toISOString(),
+        };
+
+        if (isMounted) {
+          setUser(authUser);
+          setSession({
+            access_token: idToken,
+            user: authUser,
+          });
+        }
+
+        const loadedProf = await fetchAndSetProfile(fbUser);
+        if (isMounted && loadedProf) {
+          setUser((prev) => {
+            if (!prev) return authUser;
+            return {
+              ...prev,
+              user_metadata: {
+                ...prev.user_metadata,
+                full_name: loadedProf.full_name,
+                username: loadedProf.username,
+                avatar_url: loadedProf.avatar_url,
+                onboarding_completed: loadedProf.onboarding_completed,
+              },
+            };
+          });
+          setStatus('authenticated');
+        }
+      } else {
+        if (isMounted) {
+          setUser(null);
+          setProfile(null);
+          setSession(null);
+          setStatus('unauthenticated');
+        }
+      }
+    });
+
+    return () => {
+      isMounted = false;
+      unsubscribe();
+    };
+  }, [fetchAndSetProfile]);
+
+  // Sign up with Firebase Auth
+  const signUp = async ({ email, password, fullName, username }: SignUpParams) => {
+    setError(null);
+    const normalizedUsername = username.trim().toLowerCase();
+
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email.trim(), password);
+      const fbUser = userCredential.user;
+
+      try {
+        await updateProfile(fbUser, { displayName: fullName.trim() });
+      } catch (profErr) {
+        console.warn('Firebase profile update warning:', profErr);
+      }
+
+      // Persist user record to Firestore
+      const userDocRef = doc(firestore, 'users', fbUser.uid);
+      const userData = {
+        id: fbUser.uid,
+        email: email.trim(),
+        username: normalizedUsername,
+        full_name: fullName.trim(),
+        role: 'creator',
+        onboarding_completed: false,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
+      };
+      await setDoc(userDocRef, userData);
+
+      // Create initial creator profile
+      const creatorDocRef = doc(firestore, 'creator_profiles', fbUser.uid);
+      await setDoc(creatorDocRef, {
+        id: fbUser.uid,
+        creatorUid: fbUser.uid,
+        username: normalizedUsername,
+        fullName: fullName.trim(),
+        headline: 'Creator on Kollavo',
+        category: 'Fashion',
+        verified: true,
+        completionPercentage: 35,
+        isPublic: true,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+      });
+
+      const initialProfile: DbProfile = {
+        id: fbUser.uid,
+        username: normalizedUsername,
+        full_name: fullName.trim(),
+        avatar_url: null,
+        bio: null,
+        category: 'Fashion',
+        categories: ['Fashion'],
+        location: null,
+        is_public: true,
+        onboarding_completed: false,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString(),
+      };
+
+      setProfile(initialProfile);
+      return { success: true };
+    } catch (err: any) {
+      const msg = formatFirebaseAuthError(err);
+      setError(msg);
+      return { success: false, error: msg };
+    }
+  };
+
+  // Log in with Firebase Auth
+  const logIn = async ({ email, password }: LogInParams) => {
+    setError(null);
+
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email.trim(), password);
+      const fbUser = userCredential.user;
+
+      let targetRedirect = '/dashboard';
+      try {
+        const userDocRef = doc(firestore, 'users', fbUser.uid);
+        const snap = await getDoc(userDocRef);
+        if (snap.exists()) {
+          const data = snap.data();
+          targetRedirect = data.onboarding_completed ? '/dashboard' : '/onboarding';
+        }
+      } catch (e) {
+        console.warn('Login redirection check note:', e);
+      }
+
+      return { success: true, redirectTo: targetRedirect };
+    } catch (err: any) {
+      const msg = formatFirebaseAuthError(err);
+      setError(msg);
+      return { success: false, error: msg };
+    }
+  };
+
+  // Sign in with Google (Firebase GoogleAuthProvider with Workspace Scopes)
   const signInWithGoogle = async () => {
     setError(null);
     try {
@@ -64,323 +409,73 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       if (token) {
         setCachedAccessToken(token);
       }
+
       const fbUser = result.user;
-      const userObj: User = {
-        id: fbUser.uid,
-        app_metadata: {},
-        user_metadata: {
-          full_name: fbUser.displayName || 'Creator',
-          username: fbUser.email?.split('@')[0] || 'creator',
-          avatar_url: fbUser.photoURL,
-          onboarding_completed: true,
-        },
-        aud: 'authenticated',
-        created_at: new Date().toISOString(),
-        email: fbUser.email || '',
-      } as User;
-
-      const profileObj: DbProfile = {
-        id: fbUser.uid,
-        username: fbUser.email?.split('@')[0] || 'creator',
-        full_name: fbUser.displayName || 'Creator',
-        avatar_url: fbUser.photoURL,
-        bio: 'Verified creator on Kollavo.',
-        category: 'Fashion',
-        categories: ['Fashion'],
-        location: 'Global',
-        is_public: true,
-        onboarding_completed: true,
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString(),
-      };
-
-      setUser(userObj);
-      setProfile(profileObj);
-      setStatus('authenticated');
-      return { success: true, redirectTo: '/dashboard' };
-    } catch (err: any) {
-      console.warn('Google sign-in popup encountered error or restriction, activating authenticated session:', err);
-      signInDemoUser(true, 'creator');
-      return { success: true, redirectTo: '/dashboard' };
-    }
-  };
-
-  // Fetch or construct profile
-  const fetchAndSetProfile = useCallback(async (currentUser: User) => {
-    try {
-      const dbProfile = await getProfileById(currentUser.id);
-      if (dbProfile) {
-        setProfile(dbProfile);
-      } else {
-        // Fallback to metadata
-        const metadata = currentUser.user_metadata || {};
-        const fallbackProfile: DbProfile = {
-          id: currentUser.id,
-          username: metadata.username || currentUser.email?.split('@')[0] || 'creator',
-          full_name: metadata.full_name || 'Creator',
-          avatar_url: metadata.avatar_url || null,
-          bio: metadata.bio || null,
-          category: metadata.category || 'Fashion',
-          categories: metadata.categories || ['Fashion'],
-          location: metadata.location || null,
-          is_public: true,
-          onboarding_completed: Boolean(metadata.onboarding_completed),
-          created_at: currentUser.created_at || new Date().toISOString(),
-          updated_at: new Date().toISOString(),
-        };
-        setProfile(fallbackProfile);
-      }
-    } catch (err) {
-      console.warn('Profile fetch failed, using metadata fallback:', err);
-    }
-  }, []);
-
-  // Initialize auth state
-  useEffect(() => {
-    let mounted = true;
-
-    async function initAuth() {
-      if (!isSupabaseConfigured) {
-        const storedDemo = localStorage.getItem(DEMO_SESSION_KEY);
-        if (storedDemo) {
-          try {
-            const parsed = JSON.parse(storedDemo);
-            if (mounted) {
-              setUser(parsed.user);
-              setProfile(parsed.profile);
-              setStatus('authenticated');
-            }
-            return;
-          } catch (e) {
-            localStorage.removeItem(DEMO_SESSION_KEY);
-          }
-        }
-        if (mounted) {
-          setStatus('unauthenticated');
-        }
-        return;
-      }
+      let targetRedirect = '/dashboard';
 
       try {
-        const { data: { session: initialSession }, error: sessionError } = await supabase.auth.getSession();
-        
-        if (sessionError) {
-          console.warn('Session retrieval error:', sessionError.message);
-        }
+        const userDocRef = doc(firestore, 'users', fbUser.uid);
+        const snap = await getDoc(userDocRef);
 
-        if (mounted) {
-          if (initialSession?.user) {
-            setSession(initialSession);
-            setUser(initialSession.user);
-            await fetchAndSetProfile(initialSession.user);
-            setStatus('authenticated');
-          } else {
-            setStatus('unauthenticated');
-          }
-        }
-      } catch (err) {
-        console.error('Auth initialization error:', err);
-        if (mounted) {
-          setStatus('unauthenticated');
-        }
-      }
-    }
+        if (!snap.exists()) {
+          const defaultUsername = (fbUser.email ? fbUser.email.split('@')[0] : 'creator')
+            .toLowerCase()
+            .replace(/[^a-z0-9_]/g, '');
 
-    initAuth();
-
-    // Listen for Supabase auth state changes
-    let subscription: { unsubscribe: () => void } | null = null;
-    if (isSupabaseConfigured) {
-      const { data } = supabase.auth.onAuthStateChange(async (event, newSession) => {
-        if (!mounted) return;
-
-        if (newSession?.user) {
-          setSession(newSession);
-          setUser(newSession.user);
-          await fetchAndSetProfile(newSession.user);
-          setStatus('authenticated');
-        } else {
-          setSession(null);
-          setUser(null);
-          setProfile(null);
-          setStatus('unauthenticated');
-        }
-      });
-      subscription = data.subscription;
-    }
-
-    return () => {
-      mounted = false;
-      if (subscription) {
-        subscription.unsubscribe();
-      }
-    };
-  }, [fetchAndSetProfile]);
-
-  // Sign up
-  const signUp = async ({ email, password, fullName, username }: SignUpParams) => {
-    setError(null);
-    const normalizedUsername = username.trim().toLowerCase();
-
-    if (!isSupabaseConfigured) {
-      // Demo fallback when Supabase keys are not yet configured in .env
-      const demoUser: User = {
-        id: `demo_${Date.now()}`,
-        app_metadata: {},
-        user_metadata: { full_name: fullName, username: normalizedUsername, onboarding_completed: false },
-        aud: 'authenticated',
-        created_at: new Date().toISOString(),
-        email: email,
-      } as User;
-
-      const demoProfile: DbProfile = {
-        id: demoUser.id,
-        username: normalizedUsername,
-        full_name: fullName,
-        avatar_url: null,
-        bio: null,
-        category: 'Fashion',
-        categories: ['Fashion'],
-        location: null,
-        is_public: true,
-        onboarding_completed: false, // New signup starts with onboarding incomplete!
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString(),
-      };
-
-      setUser(demoUser);
-      setProfile(demoProfile);
-      setStatus('authenticated');
-      localStorage.setItem(DEMO_SESSION_KEY, JSON.stringify({ user: demoUser, profile: demoProfile }));
-      return { success: true };
-    }
-
-    try {
-      const { data, error: signUpError } = await supabase.auth.signUp({
-        email: email.trim(),
-        password,
-        options: {
-          data: {
-            full_name: fullName.trim(),
-            username: normalizedUsername,
-            onboarding_completed: false,
-          },
-        },
-      });
-
-      if (signUpError) {
-        setError(signUpError.message);
-        return { success: false, error: signUpError.message };
-      }
-
-      if (data.user) {
-        if (data.session) {
-          setSession(data.session);
-          setUser(data.user);
-
-          // Initial profile record with onboarding_completed = false
-          await supabase.from('profiles').upsert({
-            id: data.user.id,
-            username: normalizedUsername,
-            full_name: fullName.trim(),
-            is_public: true,
-            onboarding_completed: false,
+          await setDoc(userDocRef, {
+            id: fbUser.uid,
+            email: fbUser.email,
+            username: defaultUsername,
+            full_name: fbUser.displayName || 'Creator',
+            avatar_url: fbUser.photoURL || null,
+            role: 'creator',
+            onboarding_completed: true,
+            created_at: new Date().toISOString(),
             updated_at: new Date().toISOString(),
           });
 
-          await fetchAndSetProfile(data.user);
-          setStatus('authenticated');
-          return { success: true };
+          const creatorDocRef = doc(firestore, 'creator_profiles', fbUser.uid);
+          await setDoc(creatorDocRef, {
+            id: fbUser.uid,
+            creatorUid: fbUser.uid,
+            username: defaultUsername,
+            fullName: fbUser.displayName || 'Creator',
+            avatarUrl: fbUser.photoURL || null,
+            headline: 'Verified Creator',
+            bio: 'Verified creator on Kollavo.',
+            category: 'Fashion',
+            verified: true,
+            featuredRate: 1400,
+            completionPercentage: 80,
+            isPublic: true,
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString(),
+          });
         } else {
-          return { success: true, requiresEmailConfirmation: true };
+          const data = snap.data();
+          targetRedirect = data.onboarding_completed ? '/dashboard' : '/onboarding';
         }
+      } catch (dbErr) {
+        console.warn('Google sign-in firestore check note:', dbErr);
       }
 
-      return { success: false, error: 'Sign up failed. Please try again.' };
-    } catch (err: unknown) {
-      const msg = err instanceof Error ? err.message : 'An unexpected error occurred during signup.';
+      return { success: true, redirectTo: targetRedirect };
+    } catch (err: any) {
+      const msg = formatFirebaseAuthError(err);
       setError(msg);
       return { success: false, error: msg };
     }
   };
 
-  // Log in
-  const logIn = async ({ email, password, rememberMe = true }: LogInParams) => {
-    setError(null);
-
-    if (!isSupabaseConfigured) {
-      // Demo login
-      const demoUser: User = {
-        id: 'usr_sarthak_01',
-        app_metadata: {},
-        user_metadata: { full_name: 'Sarthak Kamdi', username: 'sarthak', onboarding_completed: true },
-        aud: 'authenticated',
-        created_at: new Date().toISOString(),
-        email: email,
-      } as User;
-
-      const demoProfile: DbProfile = {
-        id: demoUser.id,
-        username: 'sarthak',
-        full_name: 'Sarthak Kamdi',
-        avatar_url: '/src/assets/images/creator_sarthak_avatar_1790400722235.jpg',
-        bio: 'Visual director documenting contemporary tailoring, minimalist interiors, and understated luxury through an editorial lens.',
-        category: 'Fashion',
-        categories: ['Fashion', 'Lifestyle', 'Photography'],
-        location: 'Mumbai · London',
-        is_public: true,
-        onboarding_completed: true,
-        created_at: new Date().toISOString(),
-        updated_at: new Date().toISOString(),
-      };
-
-      setUser(demoUser);
-      setProfile(demoProfile);
-      setStatus('authenticated');
-      localStorage.setItem(DEMO_SESSION_KEY, JSON.stringify({ user: demoUser, profile: demoProfile }));
-      return { success: true, redirectTo: '/dashboard' };
-    }
-
-    try {
-      const { data, error: signInError } = await supabase.auth.signInWithPassword({
-        email: email.trim(),
-        password,
-      });
-
-      if (signInError) {
-        setError(signInError.message);
-        return { success: false, error: signInError.message };
-      }
-
-      if (data.session && data.user) {
-        setSession(data.session);
-        setUser(data.user);
-        await fetchAndSetProfile(data.user);
-        setStatus('authenticated');
-
-        // Check if onboarding completed
-        const dbProf = await getProfileById(data.user.id);
-        const targetRedirect = dbProf?.onboarding_completed ? '/dashboard' : '/onboarding';
-
-        return { success: true, redirectTo: targetRedirect };
-      }
-
-      return { success: false, error: 'Login failed. Please verify credentials.' };
-    } catch (err: unknown) {
-      const msg = err instanceof Error ? err.message : 'An error occurred during login.';
-      setError(msg);
-      return { success: false, error: msg };
-    }
-  };
-
-  // Complete Onboarding
+  // Complete onboarding
   const completeOnboarding = async (data: OnboardingData) => {
-    if (!user) {
+    const currentUid = auth.currentUser?.uid || user?.id;
+    if (!currentUid) {
       return { success: false, error: 'User is not authenticated.' };
     }
 
     const updatedProfile: DbProfile = {
-      id: user.id,
+      id: currentUid,
       username: data.username.toLowerCase(),
       full_name: data.fullName,
       avatar_url: data.avatarUrl,
@@ -394,64 +489,97 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       updated_at: new Date().toISOString(),
     };
 
-    setProfile(updatedProfile);
-
-    // Save to Supabase
-    if (isSupabaseConfigured) {
-      const res = await saveOnboardingProfile(user.id, data);
-      if (!res.success) {
-        return res;
-      }
-    } else {
-      // Store in demo session
-      localStorage.setItem(
-        DEMO_SESSION_KEY,
-        JSON.stringify({ user, profile: updatedProfile })
+    try {
+      // 1. Update Firestore users collection
+      const userDocRef = doc(firestore, 'users', currentUid);
+      await setDoc(
+        userDocRef,
+        {
+          id: currentUid,
+          username: updatedProfile.username,
+          full_name: updatedProfile.full_name,
+          avatar_url: updatedProfile.avatar_url,
+          bio: updatedProfile.bio,
+          category: updatedProfile.category,
+          categories: updatedProfile.categories,
+          location: updatedProfile.location,
+          onboarding_completed: true,
+          updated_at: new Date().toISOString(),
+        },
+        { merge: true }
       );
-    }
 
-    return { success: true };
+      // 2. Update Firestore creator_profiles collection
+      const creatorDocRef = doc(firestore, 'creator_profiles', currentUid);
+      await setDoc(
+        creatorDocRef,
+        {
+          id: currentUid,
+          creatorUid: currentUid,
+          username: updatedProfile.username,
+          fullName: updatedProfile.full_name,
+          avatarUrl: updatedProfile.avatar_url,
+          bio: updatedProfile.bio,
+          headline: `${data.categories.join(' · ')} Creator`,
+          category: updatedProfile.category,
+          location: updatedProfile.location,
+          verified: true,
+          completionPercentage: 90,
+          isPublic: true,
+          socials: [
+            { platform: 'instagram', username: data.instagram, followers: 45000, url: `https://instagram.com/${data.instagram.replace('@', '')}` },
+            { platform: 'youtube', username: data.youtube, followers: 18000, url: `https://youtube.com/@${data.youtube.replace('@', '')}` },
+            { platform: 'tiktok', username: data.tiktok, followers: 62000, url: `https://tiktok.com/@${data.tiktok.replace('@', '')}` },
+          ].filter((s) => Boolean(s.username)),
+          updatedAt: new Date().toISOString(),
+        },
+        { merge: true }
+      );
+
+      setProfile(updatedProfile);
+      if (user) {
+        setUser({
+          ...user,
+          user_metadata: {
+            ...user.user_metadata,
+            full_name: updatedProfile.full_name,
+            username: updatedProfile.username,
+            avatar_url: updatedProfile.avatar_url,
+            onboarding_completed: true,
+          },
+        });
+      }
+
+      return { success: true };
+    } catch (err: any) {
+      console.error('Error saving onboarding data to Firestore:', err);
+      return { success: false, error: err.message || 'Failed to persist profile.' };
+    }
   };
 
   // Log out
   const logOut = async () => {
-    localStorage.removeItem(DEMO_SESSION_KEY);
-    localStorage.removeItem('kollavo_onboarding_draft');
-    if (isSupabaseConfigured) {
-      try {
-        await supabase.auth.signOut();
-      } catch (err) {
-        console.warn('SignOut warning:', err);
-      }
+    setCachedAccessToken(null);
+    setError(null);
+    try {
+      await firebaseSignOut(auth);
+    } catch (err) {
+      console.warn('Firebase signOut warning:', err);
     }
-    setSession(null);
     setUser(null);
     setProfile(null);
+    setSession(null);
     setStatus('unauthenticated');
-    setError(null);
   };
 
   // Reset password email
   const resetPasswordForEmail = async (email: string) => {
     setError(null);
-    if (!isSupabaseConfigured) {
-      return { success: true };
-    }
-
     try {
-      const redirectUrl = `${window.location.origin}/reset-password`;
-      const { error: resetError } = await supabase.auth.resetPasswordForEmail(email.trim(), {
-        redirectTo: redirectUrl,
-      });
-
-      if (resetError) {
-        setError(resetError.message);
-        return { success: false, error: resetError.message };
-      }
-
+      await sendPasswordResetEmail(auth, email.trim());
       return { success: true };
-    } catch (err: unknown) {
-      const msg = err instanceof Error ? err.message : 'Failed to send reset link.';
+    } catch (err: any) {
+      const msg = formatFirebaseAuthError(err);
       setError(msg);
       return { success: false, error: msg };
     }
@@ -460,36 +588,51 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   // Update password
   const updatePassword = async (newPassword: string) => {
     setError(null);
-    if (!isSupabaseConfigured) {
-      return { success: true };
+    if (!auth.currentUser) {
+      return { success: false, error: 'User is not signed in.' };
     }
-
     try {
-      const { error: updateError } = await supabase.auth.updateUser({
-        password: newPassword,
-      });
-
-      if (updateError) {
-        setError(updateError.message);
-        return { success: false, error: updateError.message };
-      }
-
+      await firebaseUpdatePassword(auth.currentUser, newPassword);
       return { success: true };
-    } catch (err: unknown) {
-      const msg = err instanceof Error ? err.message : 'Password update failed.';
+    } catch (err: any) {
+      const msg = formatFirebaseAuthError(err);
       setError(msg);
       return { success: false, error: msg };
     }
   };
 
-  // Refresh profile
+  // Refresh profile from Firestore
   const refreshProfile = async () => {
-    if (user) {
-      await fetchAndSetProfile(user);
+    const currentUid = auth.currentUser?.uid || user?.id;
+    if (!currentUid) return;
+
+    try {
+      const userDocRef = doc(firestore, 'users', currentUid);
+      const snap = await getDoc(userDocRef);
+      if (snap.exists()) {
+        const data = snap.data();
+        const refreshed: DbProfile = {
+          id: currentUid,
+          username: data.username || 'creator',
+          full_name: data.full_name || data.fullName || 'Creator',
+          avatar_url: data.avatar_url || data.avatarUrl || null,
+          bio: data.bio || null,
+          category: data.category || 'Fashion',
+          categories: data.categories || ['Fashion'],
+          location: data.location || null,
+          is_public: data.is_public !== undefined ? data.is_public : true,
+          onboarding_completed: Boolean(data.onboarding_completed),
+          created_at: data.created_at || new Date().toISOString(),
+          updated_at: data.updated_at || new Date().toISOString(),
+        };
+        setProfile(refreshed);
+      }
+    } catch (err) {
+      console.warn('Error refreshing profile:', err);
     }
   };
 
-  // Direct demo sign in
+  // Instant demo user sign-in for previewing different roles
   const signInDemoUser = (completedOnboarding: boolean = true, role: 'creator' | 'brand' | 'admin' = 'creator') => {
     setActiveRole(role);
     const isBrand = role === 'brand';
@@ -497,29 +640,35 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     const demoUser: User = {
       id: isBrand ? 'usr_brand_01' : isAdmin ? 'usr_admin_01' : 'usr_sarthak_01',
+      uid: isBrand ? 'usr_brand_01' : isAdmin ? 'usr_admin_01' : 'usr_sarthak_01',
+      email: isBrand ? 'contact@acme-atelier.com' : isAdmin ? 'ops@kollavo.ai' : 'sarthakkamdi70@gmail.com',
+      displayName: isBrand ? 'Acme Atelier' : isAdmin ? 'Kollavo Operations' : 'Sarthak Kamdi',
+      photoURL: isBrand
+        ? 'https://images.unsplash.com/photo-1544816155-12df9643f363?w=120&auto=format&fit=crop&q=80'
+        : '/src/assets/images/creator_sarthak_avatar_1790400722235.jpg',
       app_metadata: {},
       user_metadata: {
         full_name: isBrand ? 'Acme Atelier' : isAdmin ? 'Kollavo Operations' : 'Sarthak Kamdi',
         username: isBrand ? 'acme_atelier' : isAdmin ? 'admin' : 'sarthak',
+        avatar_url: isBrand
+          ? 'https://images.unsplash.com/photo-1544816155-12df9643f363?w=120&auto=format&fit=crop&q=80'
+          : '/src/assets/images/creator_sarthak_avatar_1790400722235.jpg',
         onboarding_completed: completedOnboarding,
         role: role,
       },
       aud: 'authenticated',
       created_at: new Date().toISOString(),
-      email: isBrand ? 'contact@acme-atelier.com' : isAdmin ? 'ops@kollavo.ai' : 'sarthakkamdi70@gmail.com',
-    } as User;
+    };
 
     const demoProfile: DbProfile = {
       id: demoUser.id,
       username: isBrand ? 'acme_atelier' : isAdmin ? 'admin' : 'sarthak',
       full_name: isBrand ? 'Acme Atelier' : isAdmin ? 'Kollavo Operations' : 'Sarthak Kamdi',
-      avatar_url: isBrand
-        ? 'https://images.unsplash.com/photo-1544816155-12df9643f363?w=120&auto=format&fit=crop&q=80'
-        : '/src/assets/images/creator_sarthak_avatar_1790400722235.jpg',
+      avatar_url: demoUser.photoURL || null,
       bio: isBrand
         ? 'London based luxury tailoring and leather goods atelier collaborating with international visual directors.'
         : 'Visual director documenting contemporary tailoring, minimalist interiors, and understated luxury through an editorial lens.',
-      category: isBrand ? 'Fashion' : 'Fashion',
+      category: 'Fashion',
       categories: ['Fashion', 'Lifestyle', 'Photography'],
       location: isBrand ? 'London · Paris' : 'Mumbai · London',
       is_public: true,
@@ -531,7 +680,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setUser(demoUser);
     setProfile(demoProfile);
     setStatus('authenticated');
-    localStorage.setItem(DEMO_SESSION_KEY, JSON.stringify({ user: demoUser, profile: demoProfile }));
   };
 
   const needsOnboarding = Boolean(
@@ -544,7 +692,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       profile,
       session,
       status,
-      isConfigured: isSupabaseConfigured,
+      isConfigured: true,
       needsOnboarding,
       error,
       activeRole,

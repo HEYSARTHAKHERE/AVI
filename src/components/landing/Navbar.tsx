@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, ArrowRight, LayoutDashboard } from 'lucide-react';
+import { Menu, X, ArrowRight, LayoutDashboard, Sun, Moon } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { useAuth } from '../../context/AuthContext';
+import { useTheme } from '../../context/ThemeContext';
 import { UserMenu } from '../auth/UserMenu';
 
 interface NavbarProps {
@@ -11,7 +12,8 @@ interface NavbarProps {
 }
 
 export const Navbar: React.FC<NavbarProps> = ({ onOpenAuth, onOpenPreview, onNavigate }) => {
-  const { status, profile, user } = useAuth();
+  const { status } = useAuth();
+  const { resolvedTheme, toggleTheme } = useTheme();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -25,14 +27,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAuth, onOpenPreview, onNav
     }
   };
 
-  const handlePreview = () => {
-    if (onOpenPreview) {
-      onOpenPreview();
-    } else {
-      navigate('/creators');
-    }
-  };
-
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
@@ -42,64 +36,63 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAuth, onOpenPreview, onNav
   }, []);
 
   const navLinks = [
-    { label: 'Product', href: '#product' },
-    { label: 'Features', href: '#features' },
-    { label: 'How it works', href: '#how-it-works' },
-    { label: 'Pricing', href: '#pricing' },
+    { label: 'Creators', path: '/creators' },
+    { label: 'Brands', path: '/brands' },
+    { label: 'Campaigns', path: '/campaigns' },
+    { label: 'How It Works', path: '/how-it-works' },
+    { label: 'Pricing', path: '/pricing' },
+    { label: 'About', path: '/about' },
   ];
-
-  const handleLinkClick = (href: string) => {
-    setMobileMenuOpen(false);
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
 
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-40 transition-all duration-200 ${
         isScrolled
-          ? 'bg-[#FAF9F5]/90 backdrop-blur-md border-b border-[rgba(20,20,22,0.06)] shadow-xs py-3.5'
-          : 'bg-[#FAF9F5] border-b border-transparent py-5'
+          ? 'bg-[var(--color-bg-surface)]/90 backdrop-blur-md border-b border-[var(--color-border-subtle)] shadow-xs py-3.5'
+          : 'bg-[var(--color-bg-surface)] border-b border-transparent py-5'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
-          {/* Zone 1: Single text element wordmark */}
+          {/* Logo / Brand Name */}
           <button
             onClick={() => navigate('/')}
-            className="text-xl sm:text-2xl font-bold tracking-tight text-[#141416] hover:opacity-90 transition-opacity flex items-center gap-2"
+            className="text-xl sm:text-2xl font-bold tracking-tight text-[var(--color-text-primary)] hover:opacity-90 transition-opacity flex items-center gap-2 cursor-pointer"
           >
-            <span className="w-2.5 h-2.5 rounded-full bg-[#8EA633] inline-block"></span>
-            Kollavo
+            <span className="w-2.5 h-2.5 rounded-full bg-[#38BDF8] inline-block shadow-sm"></span>
+            <span>Kollavo</span>
           </button>
 
-          {/* Zone 2: 4 Clean Nav Links */}
-          <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-[#575762]">
+          {/* Navigation Links (Desktop) */}
+          <nav className="hidden md:flex items-center gap-7 text-xs font-semibold text-[var(--color-text-secondary)]">
             {navLinks.map((link) => (
-              <a
+              <button
                 key={link.label}
-                href={link.href}
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleLinkClick(link.href);
-                }}
-                className="hover:text-[#141416] transition-colors relative py-1 after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[1px] after:bg-[#141416] after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:origin-left"
+                onClick={() => navigate(link.path)}
+                className="hover:text-[var(--color-text-primary)] transition-colors py-1 cursor-pointer"
               >
                 {link.label}
-              </a>
+              </button>
             ))}
-            <button
-              onClick={handlePreview}
-              className="text-[#8EA633] hover:text-[#7E942B] transition-colors text-xs font-semibold uppercase tracking-wider px-2 py-1 rounded bg-[#8EA633]/10 hover:bg-[#8EA633]/20"
-            >
-              Live Demo
-            </button>
           </nav>
 
-          {/* Zone 3: Actions (Logged in vs Logged out) */}
+          {/* Right Action Icons: Theme Switcher + Auth Buttons */}
           <div className="hidden md:flex items-center gap-3">
+            {/* Theme Toggle Button (Requirement 9 & 10) */}
+            <button
+              type="button"
+              onClick={toggleTheme}
+              className="p-2 rounded-xl text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-subtle)] transition-colors cursor-pointer border border-[var(--color-border-subtle)]"
+              title={`Switch to ${resolvedTheme === 'dark' ? 'Light' : 'Dark'} Mode`}
+              aria-label="Toggle Theme"
+            >
+              {resolvedTheme === 'dark' ? (
+                <Sun className="w-4 h-4 text-amber-400" />
+              ) : (
+                <Moon className="w-4 h-4 text-indigo-400" />
+              )}
+            </button>
+
             {isAuthenticated ? (
               <div className="flex items-center gap-3">
                 <Button
@@ -108,8 +101,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAuth, onOpenPreview, onNav
                   onClick={() => navigate('/dashboard')}
                   className="text-xs flex items-center gap-1.5"
                 >
-                  <LayoutDashboard className="w-3.5 h-3.5 text-[#8EA633]" />
-                  <span>Dashboard</span>
+                  <LayoutDashboard className="w-3.5 h-3.5 text-[#38BDF8]" />
+                  <span>Workspace</span>
                 </Button>
                 <UserMenu onNavigate={navigate} />
               </div>
@@ -119,6 +112,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAuth, onOpenPreview, onNav
                   variant="ghost"
                   size="sm"
                   onClick={() => navigate('/login')}
+                  className="text-xs"
                 >
                   Log in
                 </Button>
@@ -126,6 +120,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAuth, onOpenPreview, onNav
                   variant="primary"
                   size="sm"
                   onClick={() => navigate('/signup')}
+                  className="text-xs"
                 >
                   Get started
                   <ArrowRight className="w-3.5 h-3.5 ml-1" />
@@ -134,28 +129,41 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAuth, onOpenPreview, onNav
             )}
           </div>
 
-          {/* Mobile Hamburger / Status Button */}
+          {/* Mobile Actions & Hamburger */}
           <div className="flex md:hidden items-center gap-2">
+            <button
+              type="button"
+              onClick={toggleTheme}
+              className="p-2 rounded-xl text-[var(--color-text-secondary)] hover:bg-[var(--color-bg-subtle)] border border-[var(--color-border-subtle)]"
+              aria-label="Toggle Theme"
+            >
+              {resolvedTheme === 'dark' ? (
+                <Sun className="w-4 h-4 text-amber-400" />
+              ) : (
+                <Moon className="w-4 h-4 text-indigo-400" />
+              )}
+            </button>
+
             {isAuthenticated ? (
               <button
                 onClick={() => navigate('/dashboard')}
-                className="text-xs font-medium px-2.5 py-1.5 bg-[#141416] text-[#FAF9F5] rounded-lg"
+                className="text-xs font-semibold px-2.5 py-1.5 bg-[#38BDF8] text-white rounded-xl shadow-xs"
               >
-                Dashboard
+                Workspace
               </button>
             ) : (
               <Button
-                variant="ghost"
+                variant="primary"
                 size="sm"
                 onClick={() => navigate('/signup')}
                 className="text-xs px-2.5 py-1"
               >
-                Get started
+                Join
               </Button>
             )}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 text-[#141416] hover:bg-[#F3F1EC] rounded-xl transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
+              className="p-2 text-[var(--color-text-primary)] hover:bg-[var(--color-bg-subtle)] rounded-xl transition-colors min-h-[40px] min-w-[40px] flex items-center justify-center border border-[var(--color-border-subtle)]"
               aria-label="Toggle navigation menu"
               aria-expanded={mobileMenuOpen}
             >
@@ -167,60 +175,60 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAuth, onOpenPreview, onNav
 
       {/* Mobile Menu Dropdown */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-b border-[rgba(20,20,22,0.08)] bg-[#FAF9F5] px-4 pt-3 pb-6 animate-in slide-in-from-top-2 duration-150 shadow-md">
-          <div className="flex flex-col gap-3 py-2">
+        <div className="md:hidden border-b border-[var(--color-border-subtle)] bg-[var(--color-bg-surface)] px-4 pt-3 pb-6 animate-in slide-in-from-top-2 duration-150 shadow-md">
+          <div className="flex flex-col gap-2 py-2 text-left">
             {navLinks.map((link) => (
-              <a
+              <button
                 key={link.label}
-                href={link.href}
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleLinkClick(link.href);
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  navigate(link.path);
                 }}
-                className="text-base font-medium text-[#141416] py-2 px-3 rounded-lg hover:bg-[#F3F1EC] transition-colors"
+                className="text-sm font-semibold text-[var(--color-text-primary)] py-2.5 px-3 rounded-xl hover:bg-[var(--color-bg-subtle)] transition-colors text-left"
               >
                 {link.label}
-              </a>
+              </button>
             ))}
-            <button
-              onClick={() => {
-                setMobileMenuOpen(false);
-                handlePreview();
-              }}
-              className="text-left text-sm font-semibold text-[#8EA633] py-2 px-3 rounded-lg hover:bg-[#8EA633]/10 transition-colors flex items-center justify-between"
-            >
-              <span>Explore Public Creator Profile</span>
-              <span className="text-xs bg-[#8EA633]/20 px-2 py-0.5 rounded text-[#3D4A14]">/creator/sarthak</span>
-            </button>
-
-            {isAuthenticated ? (
-              <UserMenu onNavigate={navigate} isMobileDrawer />
-            ) : (
-              <div className="pt-4 border-t border-[rgba(20,20,22,0.06)] flex flex-col gap-2.5">
-                <Button
-                  variant="outline"
-                  size="md"
-                  fullWidth
-                  onClick={() => {
-                    setMobileMenuOpen(false);
-                    navigate('/login');
-                  }}
-                >
-                  Log in
-                </Button>
+            <div className="pt-3 border-t border-[var(--color-border-subtle)] flex flex-col gap-2">
+              {!isAuthenticated ? (
+                <>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      navigate('/login');
+                    }}
+                    className="w-full text-center"
+                  >
+                    Log In
+                  </Button>
+                  <Button
+                    variant="primary"
+                    size="sm"
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      navigate('/signup');
+                    }}
+                    className="w-full text-center"
+                  >
+                    Create Account
+                  </Button>
+                </>
+              ) : (
                 <Button
                   variant="primary"
-                  size="md"
-                  fullWidth
+                  size="sm"
                   onClick={() => {
                     setMobileMenuOpen(false);
-                    navigate('/signup');
+                    navigate('/dashboard');
                   }}
+                  className="w-full text-center"
                 >
-                  Create your profile
+                  Go to Workspace
                 </Button>
-              </div>
-            )}
+              )}
+            </div>
           </div>
         </div>
       )}

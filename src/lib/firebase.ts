@@ -1,17 +1,30 @@
 import { initializeApp, getApps, getApp } from 'firebase/app';
-import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, User as FirebaseUser } from 'firebase/auth';
+import { getAuth, GoogleAuthProvider } from 'firebase/auth';
 import { getFirestore, doc, getDocFromServer } from 'firebase/firestore';
+import { getStorage } from 'firebase/storage';
 import firebaseConfig from '../../firebase-applet-config.json';
 
-// Initialize Firebase App
+// Initialize or retrieve the Firebase App instance using configuration
 export const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
-export const auth = getAuth(app);
-export const firestore = getFirestore(app);
 
-// Configure Google Provider with requested Workspace Scopes
+// Firebase Authentication service
+export const auth = getAuth(app);
+
+// Firestore Database instance (connecting to specific named database if configured)
+export const db = firebaseConfig.firestoreDatabaseId
+  ? getFirestore(app, firebaseConfig.firestoreDatabaseId)
+  : getFirestore(app);
+
+// Export firestore as an alias to db for backwards compatibility
+export const firestore = db;
+
+// Firebase Cloud Storage instance
+export const storage = getStorage(app);
+
+// Configure Google Provider with requested Workspace Scopes for collaboration suite
 export const googleAuthProvider = new GoogleAuthProvider();
 
-// Add Workspace scopes for Drive, Sheets, Forms, Gmail, Contacts, and Chat
+// Scopes for Drive, Sheets, Forms, Gmail, Contacts, and Chat
 const WORKSPACE_SCOPES = [
   'https://www.googleapis.com/auth/drive.file',
   'https://www.googleapis.com/auth/spreadsheets',
@@ -25,7 +38,7 @@ WORKSPACE_SCOPES.forEach((scope) => {
   googleAuthProvider.addScope(scope);
 });
 
-// In-memory cache for OAuth access token (never store in localStorage)
+// In-memory cache for OAuth access token (never stored in localStorage or persisted insecurely)
 let inMemoryAccessToken: string | null = null;
 
 export const setCachedAccessToken = (token: string | null) => {
@@ -35,9 +48,9 @@ export const setCachedAccessToken = (token: string | null) => {
 export const getCachedAccessToken = () => inMemoryAccessToken;
 
 // Connection test helper
-export async function testFirestoreConnection() {
+export async function testFirestoreConnection(): Promise<boolean> {
   try {
-    await getDocFromServer(doc(firestore, '_system', 'ping'));
+    await getDocFromServer(doc(db, '_system', 'ping'));
     return true;
   } catch (err: any) {
     if (err?.message?.includes('the client is offline')) {
@@ -46,3 +59,11 @@ export async function testFirestoreConnection() {
     return false;
   }
 }
+
+export default {
+  app,
+  auth,
+  db,
+  storage,
+  firestore,
+};
