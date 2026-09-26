@@ -6,8 +6,8 @@ import { UserMenu } from '../auth/UserMenu';
 
 interface NavbarProps {
   onOpenAuth: (mode: 'login' | 'signup') => void;
-  onOpenPreview: () => void;
-  onNavigate: (path: string) => void;
+  onOpenPreview?: () => void;
+  onNavigate?: (path: string) => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({ onOpenAuth, onOpenPreview, onNavigate }) => {
@@ -16,6 +16,22 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAuth, onOpenPreview, onNav
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const isAuthenticated = status === 'authenticated';
+
+  const navigate = (path: string) => {
+    if (onNavigate) {
+      onNavigate(path);
+    } else {
+      window.location.href = path;
+    }
+  };
+
+  const handlePreview = () => {
+    if (onOpenPreview) {
+      onOpenPreview();
+    } else {
+      navigate('/creators');
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -52,7 +68,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAuth, onOpenPreview, onNav
         <div className="flex items-center justify-between">
           {/* Zone 1: Single text element wordmark */}
           <button
-            onClick={() => onNavigate('/')}
+            onClick={() => navigate('/')}
             className="text-xl sm:text-2xl font-bold tracking-tight text-[#141416] hover:opacity-90 transition-opacity flex items-center gap-2"
           >
             <span className="w-2.5 h-2.5 rounded-full bg-[#8EA633] inline-block"></span>
@@ -75,7 +91,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAuth, onOpenPreview, onNav
               </a>
             ))}
             <button
-              onClick={onOpenPreview}
+              onClick={handlePreview}
               className="text-[#8EA633] hover:text-[#7E942B] transition-colors text-xs font-semibold uppercase tracking-wider px-2 py-1 rounded bg-[#8EA633]/10 hover:bg-[#8EA633]/20"
             >
               Live Demo
@@ -89,27 +105,27 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAuth, onOpenPreview, onNav
                 <Button
                   variant="outline"
                   size="sm"
-                  onClick={() => onNavigate('/dashboard')}
+                  onClick={() => navigate('/dashboard')}
                   className="text-xs flex items-center gap-1.5"
                 >
                   <LayoutDashboard className="w-3.5 h-3.5 text-[#8EA633]" />
                   <span>Dashboard</span>
                 </Button>
-                <UserMenu onNavigate={onNavigate} />
+                <UserMenu onNavigate={navigate} />
               </div>
             ) : (
               <>
                 <Button
                   variant="ghost"
                   size="sm"
-                  onClick={() => onNavigate('/login')}
+                  onClick={() => navigate('/login')}
                 >
                   Log in
                 </Button>
                 <Button
                   variant="primary"
                   size="sm"
-                  onClick={() => onNavigate('/signup')}
+                  onClick={() => navigate('/signup')}
                 >
                   Get started
                   <ArrowRight className="w-3.5 h-3.5 ml-1" />
@@ -122,7 +138,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAuth, onOpenPreview, onNav
           <div className="flex md:hidden items-center gap-2">
             {isAuthenticated ? (
               <button
-                onClick={() => onNavigate('/dashboard')}
+                onClick={() => navigate('/dashboard')}
                 className="text-xs font-medium px-2.5 py-1.5 bg-[#141416] text-[#FAF9F5] rounded-lg"
               >
                 Dashboard
@@ -131,7 +147,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAuth, onOpenPreview, onNav
               <Button
                 variant="ghost"
                 size="sm"
-                onClick={() => onNavigate('/signup')}
+                onClick={() => navigate('/signup')}
                 className="text-xs px-2.5 py-1"
               >
                 Get started
@@ -169,7 +185,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAuth, onOpenPreview, onNav
             <button
               onClick={() => {
                 setMobileMenuOpen(false);
-                onOpenPreview();
+                handlePreview();
               }}
               className="text-left text-sm font-semibold text-[#8EA633] py-2 px-3 rounded-lg hover:bg-[#8EA633]/10 transition-colors flex items-center justify-between"
             >
@@ -178,7 +194,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAuth, onOpenPreview, onNav
             </button>
 
             {isAuthenticated ? (
-              <UserMenu onNavigate={onNavigate} isMobileDrawer />
+              <UserMenu onNavigate={navigate} isMobileDrawer />
             ) : (
               <div className="pt-4 border-t border-[rgba(20,20,22,0.06)] flex flex-col gap-2.5">
                 <Button
@@ -187,7 +203,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAuth, onOpenPreview, onNav
                   fullWidth
                   onClick={() => {
                     setMobileMenuOpen(false);
-                    onNavigate('/login');
+                    navigate('/login');
                   }}
                 >
                   Log in
@@ -198,7 +214,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAuth, onOpenPreview, onNav
                   fullWidth
                   onClick={() => {
                     setMobileMenuOpen(false);
-                    onNavigate('/signup');
+                    navigate('/signup');
                   }}
                 >
                   Create your profile

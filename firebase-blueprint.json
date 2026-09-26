@@ -1,0 +1,119 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "User account information and active role on Kollavo",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string", "format": "email" },
+        "fullName": { "type": "string" },
+        "role": { "type": "string", "enum": ["creator", "brand", "admin"] },
+        "isDemo": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email", "fullName", "role"]
+    },
+    "CreatorProfile": {
+      "title": "CreatorProfile",
+      "description": "Public or verified creator profile, bio, rate card, and stats",
+      "type": "object",
+      "properties": {
+        "username": { "type": "string" },
+        "headline": { "type": "string" },
+        "bio": { "type": "string" },
+        "avatarUrl": { "type": "string" },
+        "category": { "type": "string" },
+        "location": { "type": "string" },
+        "verified": { "type": "boolean" },
+        "featuredRate": { "type": "number" },
+        "isDemo": { "type": "boolean" }
+      },
+      "required": ["username"]
+    },
+    "BrandProfile": {
+      "title": "BrandProfile",
+      "description": "Brand company profile, target niches, and verification credentials",
+      "type": "object",
+      "properties": {
+        "slug": { "type": "string" },
+        "companyName": { "type": "string" },
+        "logoUrl": { "type": "string" },
+        "industry": { "type": "string" },
+        "verifiedStatus": { "type": "string", "enum": ["Unverified", "Pending", "Verified", "Restricted"] },
+        "isDemo": { "type": "boolean" }
+      },
+      "required": ["slug", "companyName"]
+    },
+    "Campaign": {
+      "title": "Campaign",
+      "description": "Brand collaboration campaign brief and requirements",
+      "type": "object",
+      "properties": {
+        "campaignId": { "type": "string" },
+        "brandUid": { "type": "string" },
+        "title": { "type": "string" },
+        "budget": { "type": "number" },
+        "currency": { "type": "string" },
+        "status": { "type": "string", "enum": ["Draft", "Active", "In Review", "Completed", "Archived"] },
+        "isDemo": { "type": "boolean" }
+      },
+      "required": ["campaignId", "brandUid", "title", "budget"]
+    },
+    "Collaboration": {
+      "title": "Collaboration",
+      "description": "Direct deal between a brand and creator with milestones and escrow",
+      "type": "object",
+      "properties": {
+        "collabId": { "type": "string" },
+        "campaignId": { "type": "string" },
+        "creatorUid": { "type": "string" },
+        "brandUid": { "type": "string" },
+        "paymentAmount": { "type": "number" },
+        "status": { "type": "string" },
+        "workflowStep": { "type": "string" },
+        "isDemo": { "type": "boolean" }
+      },
+      "required": ["collabId", "creatorUid", "brandUid", "paymentAmount"]
+    },
+    "Message": {
+      "title": "Message",
+      "description": "1-to-1 or campaign chat message",
+      "type": "object",
+      "properties": {
+        "messageId": { "type": "string" },
+        "senderUid": { "type": "string" },
+        "recipientUid": { "type": "string" },
+        "content": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["messageId", "senderUid", "recipientUid", "content"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/UserProfile" },
+      "description": "User basic account data and role"
+    },
+    "/creator_profiles/{creatorId}": {
+      "schema": { "$ref": "#/entities/CreatorProfile" },
+      "description": "Creator public & verified profiles"
+    },
+    "/brand_profiles/{brandId}": {
+      "schema": { "$ref": "#/entities/BrandProfile" },
+      "description": "Brand corporate profile and verification"
+    },
+    "/campaigns/{campaignId}": {
+      "schema": { "$ref": "#/entities/Campaign" },
+      "description": "Campaign briefs"
+    },
+    "/collaborations/{collabId}": {
+      "schema": { "$ref": "#/entities/Collaboration" },
+      "description": "Active and completed collaborations"
+    },
+    "/messages/{messageId}": {
+      "schema": { "$ref": "#/entities/Message" },
+      "description": "Messages between users"
+    }
+  }
+}

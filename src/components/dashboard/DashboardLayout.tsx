@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Sidebar } from './Sidebar';
 import { DashboardHeader } from './DashboardHeader';
 import { GlobalSearchModal } from './GlobalSearchModal';
+import { GoogleWorkspaceModal } from '../workspace/GoogleWorkspaceModal';
+import { KollavoAiModal } from '../ai/KollavoAiModal';
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
@@ -28,6 +30,8 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
 
   const [mobileOpen, setMobileOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  const [workspaceOpen, setWorkspaceOpen] = useState(false);
+  const [aiOpen, setAiOpen] = useState(false);
 
   const toggleCollapse = () => {
     setIsCollapsed((prev) => {
@@ -66,6 +70,8 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
         onToggleCollapse={toggleCollapse}
         mobileOpen={mobileOpen}
         onCloseMobile={() => setMobileOpen(false)}
+        onOpenAi={() => setAiOpen(true)}
+        onOpenWorkspace={() => setWorkspaceOpen(true)}
       />
 
       {/* Main Content Area (offset by desktop sidebar width) */}
@@ -80,6 +86,8 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
           onOpenMobileSidebar={() => setMobileOpen(true)}
           onOpenSearch={() => setSearchOpen(true)}
           onNavigate={onNavigate}
+          onOpenWorkspace={() => setWorkspaceOpen(true)}
+          onOpenAi={() => setAiOpen(true)}
         />
 
         {/* Page Content Viewport */}
@@ -98,6 +106,18 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
         isOpen={searchOpen}
         onClose={() => setSearchOpen(false)}
         onNavigate={onNavigate}
+      />
+
+      {/* Google Workspace Suite Modal */}
+      <GoogleWorkspaceModal
+        isOpen={workspaceOpen}
+        onClose={() => setWorkspaceOpen(false)}
+      />
+
+      {/* Kollavo AI Assistant Modal */}
+      <KollavoAiModal
+        isOpen={aiOpen}
+        onClose={() => setAiOpen(false)}
       />
     </div>
   );

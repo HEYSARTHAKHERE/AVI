@@ -1,5 +1,5 @@
 import React from 'react';
-import { Menu, Search, ExternalLink } from 'lucide-react';
+import { Menu, Search, ExternalLink, HardDrive, Sparkles } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { NotificationsDropdown } from './NotificationsDropdown';
 
@@ -8,6 +8,8 @@ interface DashboardHeaderProps {
   onOpenMobileSidebar: () => void;
   onOpenSearch: () => void;
   onNavigate: (path: string) => void;
+  onOpenWorkspace?: () => void;
+  onOpenAi?: () => void;
 }
 
 export const DashboardHeader: React.FC<DashboardHeaderProps> = ({
@@ -15,6 +17,8 @@ export const DashboardHeader: React.FC<DashboardHeaderProps> = ({
   onOpenMobileSidebar,
   onOpenSearch,
   onNavigate,
+  onOpenWorkspace,
+  onOpenAi,
 }) => {
   const { user, profile } = useAuth();
 
@@ -54,7 +58,7 @@ export const DashboardHeader: React.FC<DashboardHeaderProps> = ({
         </div>
       </div>
 
-      {/* Right: Quick Search + Notifications + Avatar Profile Button */}
+      {/* Right: Quick Search + Google Suite + AI + Notifications + Avatar Profile Button */}
       <div className="flex items-center gap-2 sm:gap-3">
         {/* Search trigger */}
         <button
@@ -70,6 +74,32 @@ export const DashboardHeader: React.FC<DashboardHeaderProps> = ({
             <span>K</span>
           </kbd>
         </button>
+
+        {/* Google Workspace Suite Trigger */}
+        {onOpenWorkspace && (
+          <button
+            type="button"
+            onClick={onOpenWorkspace}
+            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-white/80 hover:bg-white border border-[rgba(20,20,22,0.08)] text-xs font-semibold text-[#141416] transition-all shadow-2xs hover:border-[#38BDF8]/40"
+            title="Google Workspace OAuth Suite (Drive, Sheets, Forms, Gmail, Chat, Contacts)"
+          >
+            <HardDrive className="w-3.5 h-3.5 text-[#38BDF8]" />
+            <span className="hidden lg:inline text-xs">Google Suite</span>
+          </button>
+        )}
+
+        {/* Kollavo AI Trigger */}
+        {onOpenAi && (
+          <button
+            type="button"
+            onClick={onOpenAi}
+            className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-[#141416] text-[#FAF9F5] hover:bg-[#202025] text-xs font-semibold transition-all shadow-2xs"
+            title="Kollavo AI Assistant"
+          >
+            <Sparkles className="w-3.5 h-3.5 text-[#8EA633]" />
+            <span className="hidden sm:inline text-xs">Kollavo AI</span>
+          </button>
+        )}
 
         {/* Notifications */}
         <NotificationsDropdown userId={user?.id} onNavigate={onNavigate} />

@@ -2,32 +2,72 @@
 
 @layer base {
   :root {
-    /* Color System - Warm off-white / editorial luxury */
-    --color-bg-primary: #FAF9F5;
+    /* LIGHT THEME TOKENS */
+    --color-bg-primary: #F8FAFC;
     --color-bg-surface: #FFFFFF;
-    --color-bg-subtle: #F3F1EC;
     --color-bg-card: #FFFFFF;
-    --color-bg-muted: #EBE8E1;
+    --color-bg-subtle: #F1F5F9;
+    --color-bg-elevated: #FFFFFF;
+    --color-bg-hover: #E2E8F0;
 
-    --color-text-primary: #121316;
-    --color-text-secondary: #5C5C66;
-    --color-text-muted: #888894;
+    --color-text-primary: #0F172A;
+    --color-text-secondary: #475569;
+    --color-text-muted: #64748B;
     
-    /* Subtle hairline borders */
-    --color-border-subtle: rgba(18, 19, 22, 0.07);
-    --color-border-medium: rgba(18, 19, 22, 0.12);
-    --color-border-strong: rgba(18, 19, 22, 0.22);
+    --color-border-subtle: rgba(15, 23, 42, 0.08);
+    --color-border-medium: rgba(15, 23, 42, 0.16);
+    --color-border-strong: rgba(15, 23, 42, 0.28);
 
-    /* Sophisticated muted lime / olive accent */
-    --color-accent-lime: #8EA633;
-    --color-accent-lime-hover: #7E942B;
-    --color-accent-lime-tint: #F3F6E8;
-    --color-accent-lime-text: #3D4A14;
+    --color-accent: #0284C7;
+    --color-accent-hover: #0369A1;
+    --color-accent-tint: rgba(2, 132, 199, 0.08);
+    --color-accent-text: #0284C7;
 
-    /* Shadows */
-    --shadow-subtle: 0 1px 2px rgba(18, 19, 22, 0.04);
-    --shadow-card: 0 4px 16px -2px rgba(18, 19, 22, 0.05), 0 1px 3px rgba(18, 19, 22, 0.02);
-    --shadow-elevated: 0 12px 36px -4px rgba(18, 19, 22, 0.08), 0 2px 8px rgba(18, 19, 22, 0.03);
+    --color-accent-indigo: #6366F1;
+    --color-accent-indigo-tint: rgba(99, 102, 241, 0.08);
+
+    --color-accent-lime: #16A34A;
+    --color-accent-lime-tint: #DCFCE7;
+
+    --shadow-subtle: 0 1px 2px rgba(15, 23, 42, 0.04);
+    --shadow-card: 0 4px 16px -2px rgba(15, 23, 42, 0.06), 0 1px 3px rgba(15, 23, 42, 0.03);
+    --shadow-elevated: 0 16px 36px -4px rgba(15, 23, 42, 0.1), 0 2px 8px rgba(15, 23, 42, 0.04);
+  }
+
+  /* DARK THEME TOKENS - Midnight Blue Foundation */
+  html.dark,
+  [data-theme='dark'] {
+    --color-bg-primary: #050814;
+    --color-bg-surface: #0A1020;
+    --color-bg-card: #0E1626;
+    --color-bg-subtle: #111B2E;
+    --color-bg-elevated: #152038;
+    --color-bg-hover: #1E293B;
+
+    --color-text-primary: #F8FAFC;
+    --color-text-secondary: #94A3B8;
+    --color-text-muted: #64748B;
+    
+    --color-border-subtle: rgba(56, 189, 248, 0.12);
+    --color-border-medium: rgba(56, 189, 248, 0.22);
+    --color-border-strong: rgba(56, 189, 248, 0.35);
+
+    /* Icy / Electric Blue Primary Accent */
+    --color-accent: #38BDF8;
+    --color-accent-hover: #7DD3FC;
+    --color-accent-tint: rgba(56, 189, 248, 0.12);
+    --color-accent-text: #38BDF8;
+
+    /* Subtle Indigo / Violet Secondary Accent */
+    --color-accent-indigo: #818CF8;
+    --color-accent-indigo-tint: rgba(129, 140, 248, 0.12);
+
+    --color-accent-lime: #4ADE80;
+    --color-accent-lime-tint: rgba(74, 222, 128, 0.12);
+
+    --shadow-subtle: 0 1px 2px rgba(0, 0, 0, 0.4);
+    --shadow-card: 0 8px 24px -4px rgba(0, 0, 0, 0.55), 0 1px 2px rgba(56, 189, 248, 0.05);
+    --shadow-elevated: 0 20px 48px -8px rgba(0, 0, 0, 0.75), 0 2px 10px rgba(56, 189, 248, 0.08);
   }
 
   body {
@@ -37,6 +77,7 @@
     letter-spacing: -0.011em;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    transition: background-color 0.2s ease, color 0.2s ease;
   }
 
   h1, h2, h3, h4, .font-display {
@@ -47,6 +88,16 @@
   .font-mono-data {
     font-family: 'Geist Mono', monospace;
     font-variant-numeric: tabular-nums;
+  }
+
+  /* Accessibility: Prefers Reduced Motion */
+  @media (prefers-reduced-motion: reduce) {
+    *, ::before, ::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
   }
 }
 
@@ -66,5 +117,8 @@
   }
   .bg-subtle-surface {
     background-color: var(--color-bg-subtle);
+  }
+  .bg-card {
+    background-color: var(--color-bg-card);
   }
 }
