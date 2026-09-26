@@ -4,6 +4,7 @@ import { Button } from '../ui/Button';
 import { useAuth } from '../../context/AuthContext';
 import { useTheme } from '../../context/ThemeContext';
 import { UserMenu } from '../auth/UserMenu';
+import { BrandLogo } from '../brand/BrandLogo';
 
 interface NavbarProps {
   onOpenAuth: (mode: 'login' | 'signup') => void;
@@ -59,8 +60,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAuth, onOpenPreview, onNav
             onClick={() => navigate('/')}
             className="text-xl sm:text-2xl font-bold tracking-tight text-[var(--color-text-primary)] hover:opacity-90 transition-opacity flex items-center gap-2 cursor-pointer"
           >
-            <span className="w-2.5 h-2.5 rounded-full bg-[#38BDF8] inline-block shadow-sm"></span>
-            <span>Kollavo</span>
+            <BrandLogo />
           </button>
 
           {/* Navigation Links (Desktop) */}
@@ -101,7 +101,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAuth, onOpenPreview, onNav
                   onClick={() => navigate('/dashboard')}
                   className="text-xs flex items-center gap-1.5"
                 >
-                  <LayoutDashboard className="w-3.5 h-3.5 text-[#38BDF8]" />
+                  <LayoutDashboard className="w-3.5 h-3.5 text-[var(--color-accent-text)]" />
                   <span>Workspace</span>
                 </Button>
                 <UserMenu onNavigate={navigate} />
@@ -147,7 +147,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenAuth, onOpenPreview, onNav
             {isAuthenticated ? (
               <button
                 onClick={() => navigate('/dashboard')}
-                className="text-xs font-semibold px-2.5 py-1.5 bg-[#38BDF8] text-white rounded-xl shadow-xs"
+                className="text-xs font-semibold px-2.5 py-1.5 bg-[var(--color-accent)] text-[#10200A] rounded-xl shadow-xs"
               >
                 Workspace
               </button>

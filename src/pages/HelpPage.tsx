@@ -12,16 +12,16 @@ export const HelpPage: React.FC<HelpPageProps> = ({ onNavigate }) => {
 
   const faqs = [
     {
-      q: 'How does Kollavo protect creator payments?',
-      a: 'When a brand accepts your collaboration proposal or sends an offer, the campaign budget is immediately funded into a secure Kollavo Escrow account. Once you upload deliverables to the Content Approval Workspace and the brand approves them, the escrow funds automatically release to your account balance.',
+      q: 'How does MAVORA protect creator payments?',
+      a: 'When a brand accepts your collaboration proposal or sends an offer, the campaign budget is immediately funded into a secure MAVORA Escrow account. Once you upload deliverables to the Content Approval Workspace and the brand approves them, the escrow funds automatically release to your account balance.',
     },
     {
       q: 'How do social media integrations work? Do you ask for passwords?',
-      a: 'Never. Kollavo uses official OAuth 2.0 protocols directly with Meta (Instagram Graph API), TikTok, and Google (YouTube Data API). You authenticate directly on the platform and grant minimum read-only permissions for public follower counts, video views, and engagement benchmarks.',
+      a: 'Never. MAVORA uses official OAuth 2.0 protocols directly with Meta (Instagram Graph API), TikTok, and Google (YouTube Data API). You authenticate directly on the platform and grant minimum read-only permissions for public follower counts, video views, and engagement benchmarks.',
     },
     {
       q: 'What is the transparent matching system for brands?',
-      a: 'Unlike opaque platforms that claim an algorithm has found the "absolute best" creator, Kollavo presents explicit fit factors: Niche Match %, Target Audience Location Match, Platform Compatibility, and Verified Budget Alignment. Brands have full control over what matters most to their campaign.',
+      a: 'Unlike opaque platforms that claim an algorithm has found the "absolute best" creator, MAVORA presents explicit fit factors: Niche Match %, Target Audience Location Match, Platform Compatibility, and Verified Budget Alignment. Brands have full control over what matters most to their campaign.',
     },
     {
       q: 'How does Google Workspace integration assist my workflow?',
@@ -29,7 +29,7 @@ export const HelpPage: React.FC<HelpPageProps> = ({ onNavigate }) => {
     },
     {
       q: 'What happens if there is a deliverable dispute?',
-      a: 'Both parties can open a case in the Kollavo Dispute Center. Funds remain held securely in escrow while both sides submit evidence (chat history, approved brief terms, uploaded drafts). Our operations team mediates based strictly on the signed collaboration agreement.',
+      a: 'Both parties can open a case in the MAVORA Dispute Center. Funds remain held securely in escrow while both sides submit evidence (chat history, approved brief terms, uploaded drafts). Our operations team mediates based strictly on the signed collaboration agreement.',
     },
   ];
 
@@ -46,7 +46,7 @@ export const HelpPage: React.FC<HelpPageProps> = ({ onNavigate }) => {
             Knowledge Base & Documentation
           </span>
           <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight">
-            Kollavo Help Center
+            MAVORA Help Center
           </h1>
           <p className="text-sm text-[var(--color-text-secondary)] leading-relaxed">
             Everything you need to know about setting up rate cards, connecting official social APIs, funding campaign escrow, and collaborating with global partners.

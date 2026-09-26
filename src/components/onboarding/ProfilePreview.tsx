@@ -55,7 +55,7 @@ export const ProfilePreview: React.FC<ProfilePreviewProps> = ({
         </div>
 
         <div className="flex items-center gap-1 px-3 py-0.5 bg-white border border-[rgba(20,20,22,0.06)] rounded-md text-[11px] font-mono text-[#575762] truncate max-w-[200px]">
-          <span className="text-[#888894]">kollavo.com/creator/</span>
+          <span className="text-[#888894]">mavora.com/creator/</span>
           <span className="font-semibold text-[#141416]">{displayUsername}</span>
         </div>
 

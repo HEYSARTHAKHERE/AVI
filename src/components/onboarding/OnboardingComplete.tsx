@@ -43,7 +43,7 @@ export const OnboardingComplete: React.FC<OnboardingCompleteProps> = ({
           Your creator profile is ready.
         </h2>
         <p className="text-sm sm:text-base text-[#575762] max-w-md mx-auto leading-relaxed">
-          Welcome to Kollavo. Your professional creator presence starts here.
+          Welcome to MAVORA. Your professional creator presence starts here.
         </p>
       </div>
 

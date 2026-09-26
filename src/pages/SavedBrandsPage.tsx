@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Bookmark, Building2, Plus, Mail, MessageSquare, ArrowRight, CheckCircle2 } from 'lucide-react';
 import { DashboardLayout } from '../components/dashboard/DashboardLayout';
-import { kollavoStore, Brand } from '../data/kollavoStore';
+import { mavoraStore, Brand } from '../data/mavoraStore';
 import { useMode } from '../context/ModeContext';
 import { Button } from '../components/ui/Button';
 
@@ -11,7 +11,7 @@ interface SavedBrandsPageProps {
 
 export const SavedBrandsPage: React.FC<SavedBrandsPageProps> = ({ onNavigate }) => {
   const { isDemoDataEnabled } = useMode();
-  const brands = kollavoStore.getBrands(isDemoDataEnabled);
+  const brands = mavoraStore.getBrands(isDemoDataEnabled);
 
   return (
     <DashboardLayout currentPath="/saved-brands" pageTitle="Saved Brands & CRM" onNavigate={onNavigate}>

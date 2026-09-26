@@ -64,7 +64,7 @@ export const DashboardPlaceholder: React.FC<DashboardPlaceholderProps> = ({
             className="text-lg font-bold tracking-tight text-[#141416] flex items-center gap-2"
           >
             <span className="w-2.5 h-2.5 rounded-full bg-[#8EA633]"></span>
-            Kollavo
+            MAVORA
           </button>
           <span className="text-xs text-[#888894]">/</span>
           <span className="text-xs font-mono text-[#575762] bg-[#FAF9F5] px-2 py-0.5 rounded border border-[rgba(20,20,22,0.06)]">
@@ -252,7 +252,7 @@ export const DashboardPlaceholder: React.FC<DashboardPlaceholderProps> = ({
       </main>
 
       <footer className="py-4 text-center text-[11px] text-[#888894] border-t border-[rgba(20,20,22,0.06)]">
-        Kollavo Creator Operating System · Phase 3 Onboarding & Profile Foundation
+        MAVORA Creator Operating System · Phase 3 Onboarding & Profile Foundation
       </footer>
     </div>
   );

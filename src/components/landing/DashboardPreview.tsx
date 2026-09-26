@@ -35,7 +35,7 @@ export const DashboardPreview: React.FC<DashboardPreviewProps> = ({ onOpenProfil
             <div className="w-3 h-3 rounded-full bg-[#141416]/15"></div>
           </div>
           <div className="hidden sm:flex items-center ml-3 px-3 py-1 bg-[#FFFFFF] border border-[rgba(20,20,22,0.06)] rounded-lg text-xs font-mono text-[#575762]">
-            <span>app.kollavo.com/dashboard</span>
+            <span>app.mavora.com/dashboard</span>
           </div>
         </div>
 

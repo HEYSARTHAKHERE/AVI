@@ -1,5 +1,5 @@
 -- ==============================================================================
--- KOLLAVO CONSOLIDATED DATABASE SCHEMA (PHASES 1, 2, 3)
+-- MAVORA CONSOLIDATED DATABASE SCHEMA (PHASES 1, 2, 3)
 -- Run this script in your Supabase project SQL Editor to initialize all tables
 -- ==============================================================================
 

@@ -163,7 +163,7 @@ export const ProfileEditorPage: React.FC<ProfileEditorPageProps> = ({
       const res = await checkUsernameAvailability(norm, user?.id);
       if (res.available) {
         setUsernameStatus('available');
-        setUsernameMessage(`kollavo.com/creator/${norm} is available`);
+        setUsernameMessage(`mavora.com/creator/${norm} is available`);
       } else {
         setUsernameStatus('taken');
         setUsernameMessage(res.error || 'Username already taken');
@@ -400,7 +400,7 @@ export const ProfileEditorPage: React.FC<ProfileEditorPageProps> = ({
                     Creator Identity & Categories
                   </h3>
                   <p className="text-xs text-[#575762] mt-0.5">
-                    Your name, claimed handle, and creative disciplines represent your brand across the Kollavo network.
+                    Your name, claimed handle, and creative disciplines represent your brand across the MAVORA network.
                   </p>
                 </div>
 
@@ -483,7 +483,7 @@ export const ProfileEditorPage: React.FC<ProfileEditorPageProps> = ({
                     {username !== initialUsername && (
                       <p className="mt-1 text-[11px] text-amber-700 bg-amber-50 p-2 rounded-lg border border-amber-200/60">
                         Notice: Changing your username handle will update your public URL to{' '}
-                        <strong>kollavo.com/creator/{username}</strong>.
+                        <strong>mavora.com/creator/{username}</strong>.
                       </p>
                     )}
                   </div>
@@ -856,7 +856,7 @@ export const ProfileEditorPage: React.FC<ProfileEditorPageProps> = ({
                       <p className="text-xs text-[#575762] leading-relaxed">
                         Anyone with your link can view your creator bio, categories, connected channels, and media kit at{' '}
                         <strong className="font-mono text-[#141416]">
-                          kollavo.com/creator/{username}
+                          mavora.com/creator/{username}
                         </strong>
                         .
                       </p>
@@ -891,7 +891,7 @@ export const ProfileEditorPage: React.FC<ProfileEditorPageProps> = ({
                       <p className="text-xs text-[#575762] leading-relaxed">
                         Only you can view your profile while logged in. External visitors to{' '}
                         <strong className="font-mono text-[#141416]">
-                          kollavo.com/creator/{username}
+                          mavora.com/creator/{username}
                         </strong>{' '}
                         will see a private notice: "This creator profile isn't public yet."
                       </p>

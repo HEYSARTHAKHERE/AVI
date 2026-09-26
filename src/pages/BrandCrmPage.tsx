@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Users, Bookmark, Search, Plus, Mail, ArrowRight, Tag, CheckCircle2 } from 'lucide-react';
 import { DashboardLayout } from '../components/dashboard/DashboardLayout';
-import { kollavoStore, Creator, formatCurrency } from '../data/kollavoStore';
+import { mavoraStore, Creator, formatCurrency } from '../data/mavoraStore';
 import { useMode } from '../context/ModeContext';
 import { Button } from '../components/ui/Button';
 
@@ -11,7 +11,7 @@ interface BrandCrmPageProps {
 
 export const BrandCrmPage: React.FC<BrandCrmPageProps> = ({ onNavigate }) => {
   const { isDemoDataEnabled } = useMode();
-  const creators = kollavoStore.getCreators(isDemoDataEnabled);
+  const creators = mavoraStore.getCreators(isDemoDataEnabled);
   const [activeTab, setActiveTab] = useState<'roster' | 'shortlist' | 'contacts'>('roster');
 
   return (

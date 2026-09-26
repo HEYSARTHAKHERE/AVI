@@ -58,7 +58,7 @@ export const PublicProfileView: React.FC<PublicProfileViewProps> = ({
         <div className="flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-[#8EA633]"></span>
           <span className="text-xs font-semibold text-[#141416] tracking-wider uppercase">
-            kollavo.com/creator/{creator.username}
+            mavora.com/creator/{creator.username}
           </span>
         </div>
 

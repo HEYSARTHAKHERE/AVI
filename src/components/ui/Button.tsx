@@ -17,7 +17,7 @@ export const Button: React.FC<ButtonProps> = ({
   ...props
 }) => {
   const baseStyles =
-    'inline-flex items-center justify-center font-medium transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8EA633]/60 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none cursor-pointer whitespace-nowrap shrink-0 select-none';
+    'inline-flex items-center justify-center font-semibold transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-bg-primary)] disabled:opacity-50 disabled:pointer-events-none cursor-pointer whitespace-nowrap shrink-0 select-none';
 
   const sizeStyles = {
     sm: 'text-xs px-3 py-1.5 min-h-[36px] rounded-lg gap-1.5',
@@ -27,15 +27,15 @@ export const Button: React.FC<ButtonProps> = ({
 
   const variantStyles = {
     primary:
-      'bg-[#141416] text-[#FAF9F5] hover:bg-[#252529] active:scale-[0.99] shadow-sm',
+      'bg-[var(--color-accent)] text-[#10200A] hover:bg-[var(--color-accent-hover)] active:scale-[0.99] shadow-sm',
     secondary:
-      'bg-[#F3F1EC] text-[#141416] hover:bg-[#EBE8E1] border border-[rgba(20,20,22,0.06)] active:scale-[0.99]',
+      'bg-[var(--color-bg-subtle)] text-[var(--color-text-primary)] hover:bg-[var(--color-bg-hover)] border border-[var(--color-border-subtle)] active:scale-[0.99]',
     outline:
-      'bg-transparent text-[#141416] border border-[rgba(20,20,22,0.15)] hover:border-[rgba(20,20,22,0.35)] hover:bg-[#FAF9F5] active:scale-[0.99]',
+      'bg-transparent text-[var(--color-text-primary)] border border-[var(--color-border-medium)] hover:border-[var(--color-accent)] hover:bg-[var(--color-accent-tint)] active:scale-[0.99]',
     ghost:
-      'bg-transparent text-[#575762] hover:text-[#141416] hover:bg-[rgba(20,20,22,0.04)]',
+      'bg-transparent text-[var(--color-text-secondary)] hover:text-[var(--color-text-primary)] hover:bg-[var(--color-bg-subtle)]',
     accent:
-      'bg-[#8EA633] text-[#FAF9F5] hover:bg-[#7E942B] active:scale-[0.99] shadow-sm font-semibold',
+      'bg-[var(--color-accent-indigo)] text-[#082019] hover:opacity-90 active:scale-[0.99] shadow-sm font-semibold',
   };
 
   const widthStyle = fullWidth ? 'w-full' : '';

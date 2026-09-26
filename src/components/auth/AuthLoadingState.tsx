@@ -9,7 +9,7 @@ export const AuthLoadingState: React.FC<{ message?: string }> = ({
         <div className="w-8 h-8 rounded-full border-2 border-[rgba(20,20,22,0.1)] border-t-[#8EA633] animate-spin" />
         <div className="text-center">
           <span className="text-sm font-semibold tracking-tight text-[#141416] block">
-            Kollavo
+            MAVORA
           </span>
           <p className="text-xs text-[#575762] mt-1">{message}</p>
         </div>

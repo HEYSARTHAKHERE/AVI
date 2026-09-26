@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Building2, Globe, CheckCircle2, Eye, Check, ExternalLink } from 'lucide-react';
 import { DashboardLayout } from '../components/dashboard/DashboardLayout';
-import { kollavoStore } from '../data/kollavoStore';
+import { mavoraStore } from '../data/mavoraStore';
 import { useAuth } from '../context/AuthContext';
 import { Button } from '../components/ui/Button';
 

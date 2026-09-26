@@ -1,5 +1,5 @@
 -- ==============================================================================
--- KOLLAVO DATABASE MIGRATION: PHASE 4 DASHBOARD, SERVICES & NOTIFICATIONS
+-- MAVORA DATABASE MIGRATION: PHASE 4 DASHBOARD, SERVICES & NOTIFICATIONS
 -- File: supabase/migrations/20260927_phase4_dashboard_services_notifications.sql
 -- Description: Creates services table and notifications table with RLS.
 -- ==============================================================================

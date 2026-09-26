@@ -1,6 +1,6 @@
 import React from 'react';
 import { Building2, CheckCircle2, Globe, ExternalLink, ArrowRight, Briefcase, Mail } from 'lucide-react';
-import { kollavoStore, formatCurrency } from '../data/kollavoStore';
+import { mavoraStore, formatCurrency } from '../data/mavoraStore';
 import { useMode } from '../context/ModeContext';
 import { Navbar } from '../components/landing/Navbar';
 import { Footer } from '../components/landing/Footer';
@@ -13,9 +13,9 @@ interface PublicBrandPageProps {
 
 export const PublicBrandPage: React.FC<PublicBrandPageProps> = ({ slug, onNavigate }) => {
   const { isDemoDataEnabled } = useMode();
-  const brands = kollavoStore.getBrands(isDemoDataEnabled);
+  const brands = mavoraStore.getBrands(isDemoDataEnabled);
   const brand = brands.find((b) => b.slug === slug) || brands[0];
-  const campaigns = kollavoStore.getCampaigns(isDemoDataEnabled).filter((c) => c.brandId === brand.id);
+  const campaigns = mavoraStore.getCampaigns(isDemoDataEnabled).filter((c) => c.brandId === brand.id);
 
   return (
     <div className="min-h-screen bg-[var(--color-bg-primary)] text-[var(--color-text-primary)] flex flex-col font-sans">
@@ -94,7 +94,7 @@ export const PublicBrandPage: React.FC<PublicBrandPageProps> = ({ slug, onNaviga
         <div className="space-y-4">
           <div className="flex items-center justify-between">
             <h2 className="text-lg font-bold">Active Collaboration Briefs ({campaigns.length})</h2>
-            <span className="text-xs text-[var(--color-text-muted)]">Funded with Kollavo Escrow</span>
+            <span className="text-xs text-[var(--color-text-muted)]">Funded with MAVORA Escrow</span>
           </div>
 
           {campaigns.length === 0 ? (

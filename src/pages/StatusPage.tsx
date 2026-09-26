@@ -9,13 +9,13 @@ interface StatusPageProps {
 
 export const StatusPage: React.FC<StatusPageProps> = ({ onNavigate }) => {
   const systems = [
-    { name: 'Kollavo Web Application Core', status: 'Operational', latency: '42ms', region: 'Global Edge' },
+    { name: 'MAVORA Web Application Core', status: 'Operational', latency: '42ms', region: 'Global Edge' },
     { name: 'Google Cloud SQL (PostgreSQL)', status: 'Operational', latency: '12ms', region: 'asia-southeast1' },
     { name: 'Firebase Authentication & Firestore', status: 'Operational', latency: '18ms', region: 'tensile-webbing-zmn89' },
     { name: 'Google Workspace OAuth (Drive, Sheets, Forms, Gmail)', status: 'Operational', latency: '65ms', region: '1P Cloud APIs' },
     { name: 'Instagram Graph API Telemetry Engine', status: 'Operational', latency: '120ms', region: 'Meta Graph v20' },
     { name: 'TikTok Creator Insights API Sync', status: 'Operational', latency: '140ms', region: 'TikTok Open API' },
-    { name: 'Kollavo Escrow Settlement Ledger', status: 'Operational', latency: '24ms', region: 'Regulated Vault' },
+    { name: 'MAVORA Escrow Settlement Ledger', status: 'Operational', latency: '24ms', region: 'Regulated Vault' },
     { name: 'Gemini AI Campaign Brief Assistant', status: 'Operational', latency: '210ms', region: 'Google GenAI' },
   ];
 
@@ -33,7 +33,7 @@ export const StatusPage: React.FC<StatusPageProps> = ({ onNavigate }) => {
             <span>All Systems Fully Operational</span>
           </span>
           <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight">
-            Kollavo Platform Status
+            MAVORA Platform Status
           </h1>
           <p className="text-sm text-[var(--color-text-secondary)] leading-relaxed">
             Real-time operational availability for core database clusters, OAuth providers, and social analytics sync adapters.

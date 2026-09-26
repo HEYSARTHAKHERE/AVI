@@ -38,10 +38,10 @@ export const Hero: React.FC<HeroProps> = ({
   };
 
   return (
-    <section className="relative pt-28 pb-16 sm:pt-36 sm:pb-24 lg:pt-40 lg:pb-28 overflow-hidden">
+    <section className="relative pt-28 pb-16 sm:pt-36 sm:pb-24 lg:pt-40 lg:pb-28 overflow-hidden aurora-wash">
       {/* Background subtle ambiance */}
       <div className="absolute inset-0 pointer-events-none -z-10">
-        <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-[#38BDF8]/5 rounded-full blur-3xl"></div>
+        <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-[var(--color-accent)]/10 rounded-full blur-3xl"></div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -49,17 +49,17 @@ export const Hero: React.FC<HeroProps> = ({
         <div className="flex items-center justify-center gap-2 text-xs font-mono font-semibold uppercase tracking-wider text-[var(--color-text-secondary)] mb-5">
           <span>Global Commercial Infrastructure</span>
           <span aria-hidden="true">·</span>
-          <span className="text-[#38BDF8]">Regulated Escrow & Verified Analytics</span>
+          <span className="text-[var(--color-accent-text)]">Creator collaboration infrastructure</span>
         </div>
 
         {/* Prompt Section 13 Headline */}
         <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-[var(--color-text-primary)] max-w-4xl mx-auto leading-[1.12] [text-wrap:balance]">
-          Kollavo — Where creators and brands collaborate.
+          Create Together. Grow Everywhere.
         </h1>
 
         {/* Prompt Section 13 Supporting text */}
         <p className="mt-6 text-base sm:text-lg lg:text-xl text-[var(--color-text-secondary)] max-w-2xl mx-auto leading-relaxed [text-wrap:balance]">
-          Discover creators, launch campaigns, manage collaborations, and measure results — all in one global platform.
+          Discover meaningful brand partnerships, launch creator campaigns, and turn collaborations into measurable growth — all in one place.
         </p>
 
         {/* Dual CTAs: I'm a Creator / I'm a Brand */}
@@ -79,9 +79,9 @@ export const Hero: React.FC<HeroProps> = ({
             variant="outline"
             size="lg"
             onClick={handleBrandClick}
-            className="w-full sm:w-auto px-7 flex items-center justify-center gap-2 border-[var(--color-border-medium)] text-[var(--color-text-primary)] hover:border-[#38BDF8]"
+            className="w-full sm:w-auto px-7 flex items-center justify-center gap-2 border-[var(--color-border-medium)] text-[var(--color-text-primary)] hover:border-[var(--color-accent)]"
           >
-            <Building2 className="w-4 h-4 text-[#38BDF8]" />
+            <Building2 className="w-4 h-4 text-[var(--color-accent-text)]" />
             <span>I'm a Brand</span>
           </Button>
         </div>

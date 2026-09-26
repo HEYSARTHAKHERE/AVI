@@ -16,7 +16,7 @@ import {
   AlertCircle
 } from 'lucide-react';
 import { DashboardLayout } from '../components/dashboard/DashboardLayout';
-import { kollavoStore, formatCurrency, Collaboration } from '../data/kollavoStore';
+import { mavoraStore, formatCurrency, Collaboration } from '../data/mavoraStore';
 import { useMode } from '../context/ModeContext';
 import { Button } from '../components/ui/Button';
 
@@ -26,7 +26,7 @@ interface CollaborationsPageProps {
 
 export const CollaborationsPage: React.FC<CollaborationsPageProps> = ({ onNavigate }) => {
   const { activeMode, isDemoDataEnabled, activeCurrency } = useMode();
-  const collabs = kollavoStore.getCollaborations(isDemoDataEnabled);
+  const collabs = mavoraStore.getCollaborations(isDemoDataEnabled);
   const [selectedCollabId, setSelectedCollabId] = useState<string>(collabs[0]?.id || '');
   const [uploadModalOpen, setUploadModalOpen] = useState(false);
   const [draftTitle, setDraftTitle] = useState('Cut v2 — Revised Brand Ending Frame');
@@ -39,7 +39,7 @@ export const CollaborationsPage: React.FC<CollaborationsPageProps> = ({ onNaviga
     e.preventDefault();
     if (!currentCollab) return;
 
-    kollavoStore.submitDeliverable(
+    mavoraStore.submitDeliverable(
       currentCollab.id,
       draftTitle,
       draftNotes,
@@ -53,14 +53,14 @@ export const CollaborationsPage: React.FC<CollaborationsPageProps> = ({ onNaviga
 
   const handleApproveAsset = () => {
     if (!currentCollab) return;
-    kollavoStore.updateCollaborationStep(currentCollab.id, 'Completed');
+    mavoraStore.updateCollaborationStep(currentCollab.id, 'Completed');
     setStatusMessage('Deliverables Approved! Escrow funds released to creator account balance.');
     setTimeout(() => setStatusMessage(null), 3500);
   };
 
   const handleRequestRevision = () => {
     if (!currentCollab) return;
-    kollavoStore.updateCollaborationStep(currentCollab.id, 'Revision');
+    mavoraStore.updateCollaborationStep(currentCollab.id, 'Revision');
     setStatusMessage('Revision requested. Creator has been notified in messages.');
     setTimeout(() => setStatusMessage(null), 3500);
   };

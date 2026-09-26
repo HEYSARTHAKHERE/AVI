@@ -6,16 +6,16 @@ export const FAQ: React.FC = () => {
 
   const faqs = [
     {
-      q: 'How is Kollavo different from Linktree or Canva?',
-      a: 'Linktree is just a basic list of URLs, and Canva gives you static, quickly outdated PDFs. Kollavo is a complete operating system: it dynamically verifies your social follower stats, packages your commercial deliverables with live pricing, provides an interactive public profile (/creator/[handle]), and tracks your active brand deals and invoices in an integrated collaboration pipeline.',
+      q: 'How is MAVORA different from Linktree or Canva?',
+      a: 'Linktree is just a basic list of URLs, and Canva gives you static, quickly outdated PDFs. MAVORA is a complete operating system: it dynamically verifies your social follower stats, packages your commercial deliverables with live pricing, provides an interactive public profile (/creator/[handle]), and tracks your active brand deals and invoices in an integrated collaboration pipeline.',
     },
     {
       q: 'Can brands contact me directly through my profile?',
-      a: 'Yes. Every Kollavo profile includes a structured brand inquiry form. When brands submit their campaign brief, deliverables, and budget, the inquiry lands directly in your Collaboration Manager and notifies your email.',
+      a: 'Yes. Every MAVORA profile includes a structured brand inquiry form. When brands submit their campaign brief, deliverables, and budget, the inquiry lands directly in your Collaboration Manager and notifies your email.',
     },
     {
       q: 'Do I have to keep updating my follower counts manually?',
-      a: 'No. Kollavo synchronizes with verified social platform APIs (Instagram, TikTok, YouTube) to ensure your media kit statistics and audience demographics reflect real-time numbers.',
+      a: 'No. MAVORA synchronizes with verified social platform APIs (Instagram, TikTok, YouTube) to ensure your media kit statistics and audience demographics reflect real-time numbers.',
     },
     {
       q: 'Can I export my media kit as a PDF?',
@@ -23,7 +23,7 @@ export const FAQ: React.FC = () => {
     },
     {
       q: 'Can I manage brand collaborations on mobile?',
-      a: 'Absolutely. Kollavo is built mobile-first. The collaboration Kanban and Table views adjust seamlessly so you can accept deals, check contract deliverables, and update statuses from your phone while on shoot.',
+      a: 'Absolutely. MAVORA is built mobile-first. The collaboration Kanban and Table views adjust seamlessly so you can accept deals, check contract deliverables, and update statuses from your phone while on shoot.',
     },
   ];
 

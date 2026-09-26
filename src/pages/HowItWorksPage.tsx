@@ -25,12 +25,12 @@ export const HowItWorksPage: React.FC<HowItWorksPageProps> = ({ onNavigate }) =>
     { num: '02', title: 'Creator Discovery', desc: 'Brands filter through verified creator profiles with transparent fit metrics; creators browse open public briefs.' },
     { num: '03', title: 'Invitation / Application', desc: 'Creators submit custom proposals and compensation requests; brands can send direct collaboration invites.' },
     { num: '04', title: 'Transparent Review', desc: 'Brand reviews applications using transparent factors (niche, location, verified metrics) without black-box scores.' },
-    { num: '05', title: 'Negotiation', desc: 'Deliverables, milestones, and usage rights are discussed and negotiated directly within Kollavo messaging.' },
+    { num: '05', title: 'Negotiation', desc: 'Deliverables, milestones, and usage rights are discussed and negotiated directly within MAVORA messaging.' },
     { num: '06', title: 'Formal Offer', desc: 'Brand submits an immutable offer with specific deliverable checklist, deadline, and agreed payout amount.' },
     { num: '07', title: 'Creator Acceptance', desc: 'Creator accepts terms, initiating escrow funding to ensure guaranteed payment upon deliverable completion.' },
     { num: '08', title: 'Escrow Funded Agreement', desc: 'Commercial agreement is timestamped and recorded in the audit ledger; funds are securely locked in escrow.' },
     { num: '09', title: 'Content Creation', desc: 'Creator produces the requested media according to brand guidelines and approved creative direction.' },
-    { num: '10', title: 'Draft Submission', desc: 'Creator uploads video cuts, raw photo assets, or copy into the Kollavo Content Approval Workspace.' },
+    { num: '10', title: 'Draft Submission', desc: 'Creator uploads video cuts, raw photo assets, or copy into the MAVORA Content Approval Workspace.' },
     { num: '11', title: 'Review & Revision Loop', desc: 'Brand reviews versioned drafts with timestamped feedback; revisions are tracked with clear audit trails.' },
     { num: '12', title: 'Asset Approval', desc: 'Brand officially marks the final asset as approved. Changes are locked, preparing for scheduled publication.' },
     { num: '13', title: 'Publication & Verification', desc: 'Creator posts the approved content to verified social channels with requested tracking links/tags.' },
@@ -50,7 +50,7 @@ export const HowItWorksPage: React.FC<HowItWorksPageProps> = ({ onNavigate }) =>
             The Collaboration Protocol
           </span>
           <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight">
-            How Kollavo Works
+            How MAVORA Works
           </h1>
           <p className="text-sm sm:text-base text-[var(--color-text-secondary)] leading-relaxed">
             The end-to-end 14-step workflow engineered to eliminate ambiguity, guarantee payment security, and streamline commercial creator-brand partnerships.
@@ -94,7 +94,7 @@ export const HowItWorksPage: React.FC<HowItWorksPageProps> = ({ onNavigate }) =>
           </div>
 
           <Button variant="primary" size="lg" onClick={() => onNavigate('/signup')}>
-            <span>Get Started with Kollavo</span>
+            <span>Get Started with MAVORA</span>
             <ArrowRight className="w-4 h-4 ml-1.5" />
           </Button>
         </div>

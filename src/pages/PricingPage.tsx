@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Check, ShieldCheck, Calculator, ArrowRight, DollarSign } from 'lucide-react';
-import { formatCurrency, SUPPORTED_CURRENCIES } from '../data/kollavoStore';
+import { formatCurrency, SUPPORTED_CURRENCIES } from '../data/mavoraStore';
 import { Navbar } from '../components/landing/Navbar';
 import { Footer } from '../components/landing/Footer';
 import { Button } from '../components/ui/Button';
@@ -60,7 +60,7 @@ export const PricingPage: React.FC<PricingPageProps> = ({ onNavigate }) => {
                   'Custom Public Profile & Dynamic Media Kit URL',
                   'Social Analytics Sync (Instagram, TikTok, YouTube)',
                   'Custom Rate Card Builder & Service Packages',
-                  'Kollavo Escrow Guarantee on Confirmed Deals',
+                  'MAVORA Escrow Guarantee on Confirmed Deals',
                   'Content Approval Workspace & Revision History',
                 ].map((feat, i) => (
                   <div key={i} className="flex items-center gap-2">

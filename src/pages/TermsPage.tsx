@@ -31,14 +31,14 @@ export const TermsPage: React.FC<TermsPageProps> = ({ onNavigate }) => {
           <section className="space-y-2">
             <h2 className="text-sm font-bold text-[var(--color-text-primary)]">1. Platform Relationship</h2>
             <p>
-              Kollavo operates as a software facilitation and workflow technology platform connecting independent creative contractors ("Creators") and commercial organizations ("Brands"). Kollavo is not an employer, talent agency, or media publisher.
+              MAVORA operates as a software facilitation and workflow technology platform connecting independent creative contractors ("Creators") and commercial organizations ("Brands"). MAVORA is not an employer, talent agency, or media publisher.
             </p>
           </section>
 
           <section className="space-y-2">
             <h2 className="text-sm font-bold text-[var(--color-text-primary)]">2. Content Deliverables & Licensing</h2>
             <p>
-              Deliverables created during a collaboration are governed by the specific commercial terms accepted in the Kollavo Collaboration Agreement. Unless explicitly negotiated otherwise, creators retain copyright in their original creative output while granting brands the agreed non-exclusive commercial usage license upon complete payout release.
+              Deliverables created during a collaboration are governed by the specific commercial terms accepted in the MAVORA Collaboration Agreement. Unless explicitly negotiated otherwise, creators retain copyright in their original creative output while granting brands the agreed non-exclusive commercial usage license upon complete payout release.
             </p>
           </section>
 

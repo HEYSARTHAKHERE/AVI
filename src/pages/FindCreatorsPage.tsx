@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { Search, Filter, CheckCircle2, Bookmark, Send, Sparkles, Eye, ArrowRight, Check } from 'lucide-react';
 import { DashboardLayout } from '../components/dashboard/DashboardLayout';
-import { kollavoStore, formatCurrency, Creator } from '../data/kollavoStore';
+import { mavoraStore, formatCurrency, Creator } from '../data/mavoraStore';
 import { useMode } from '../context/ModeContext';
 import { Button } from '../components/ui/Button';
 
@@ -18,8 +18,8 @@ export const FindCreatorsPage: React.FC<FindCreatorsPageProps> = ({ onNavigate }
   const [inviteModalCreator, setInviteModalCreator] = useState<Creator | null>(null);
   const [inviteSent, setInviteSent] = useState(false);
 
-  const creators = kollavoStore.getCreators(isDemoDataEnabled);
-  const campaigns = kollavoStore.getCampaigns(isDemoDataEnabled);
+  const creators = mavoraStore.getCreators(isDemoDataEnabled);
+  const campaigns = mavoraStore.getCampaigns(isDemoDataEnabled);
 
   const niches = ['All', 'Fashion', 'Beauty', 'Technology', 'Lifestyle', 'Photography'];
   const platforms = ['All', 'Instagram', 'TikTok', 'YouTube'];
@@ -226,7 +226,7 @@ export const FindCreatorsPage: React.FC<FindCreatorsPageProps> = ({ onNavigate }
                     <label className="block text-xs font-semibold text-[#94A3B8] mb-1">Custom Message / Deliverables Note</label>
                     <textarea
                       rows={3}
-                      defaultValue={`Hi ${inviteModalCreator.fullName}! We love your visual aesthetic and would like to invite you to our upcoming campaign. Escrow is fully guaranteed by Kollavo.`}
+                      defaultValue={`Hi ${inviteModalCreator.fullName}! We love your visual aesthetic and would like to invite you to our upcoming campaign. Escrow is fully guaranteed by MAVORA.`}
                       className="w-full bg-[#050814] border border-white/10 rounded-xl p-3 text-xs text-white resize-none"
                     />
                   </div>

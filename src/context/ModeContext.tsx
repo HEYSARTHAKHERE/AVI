@@ -12,9 +12,9 @@ interface ModeContextType {
   setCurrency: (currency: string) => void;
 }
 
-const MODE_STORAGE_KEY = 'kollavo_active_platform_mode';
-const DEMO_STORAGE_KEY = 'kollavo_demo_data_enabled';
-const CURRENCY_STORAGE_KEY = 'kollavo_active_currency';
+const MODE_STORAGE_KEY = 'mavora_active_platform_mode';
+const DEMO_STORAGE_KEY = 'mavora_demo_data_enabled';
+const CURRENCY_STORAGE_KEY = 'mavora_active_currency';
 
 const ModeContext = createContext<ModeContextType | undefined>(undefined);
 

@@ -14,11 +14,11 @@ import {
   TrendingUp
 } from 'lucide-react';
 import { DashboardLayout } from '../components/dashboard/DashboardLayout';
-import { kollavoStore, formatCurrency, Campaign, Creator } from '../data/kollavoStore';
+import { mavoraStore, formatCurrency, Campaign, Creator } from '../data/mavoraStore';
 import { useMode } from '../context/ModeContext';
 import { useAuth } from '../context/AuthContext';
 import { Button } from '../components/ui/Button';
-import { KollavoAiModal } from '../components/ai/KollavoAiModal';
+import { MAVORAAiModal } from '../components/ai/MAVORAAiModal';
 import { GoogleWorkspaceModal } from '../components/workspace/GoogleWorkspaceModal';
 
 interface BrandDashboardPageProps {
@@ -31,9 +31,9 @@ export const BrandDashboardPage: React.FC<BrandDashboardPageProps> = ({ onNaviga
   const [aiModalOpen, setAiModalOpen] = useState(false);
   const [workspaceModalOpen, setWorkspaceModalOpen] = useState(false);
 
-  const campaigns = kollavoStore.getCampaigns(isDemoDataEnabled);
-  const applications = kollavoStore.getApplications(isDemoDataEnabled);
-  const creators = kollavoStore.getCreators(isDemoDataEnabled);
+  const campaigns = mavoraStore.getCampaigns(isDemoDataEnabled);
+  const applications = mavoraStore.getApplications(isDemoDataEnabled);
+  const creators = mavoraStore.getCreators(isDemoDataEnabled);
 
   const totalActiveBudget = campaigns.reduce((acc, c) => acc + c.budget, 0);
 
@@ -225,8 +225,8 @@ export const BrandDashboardPage: React.FC<BrandDashboardPageProps> = ({ onNaviga
           </div>
         </div>
 
-        {/* Kollavo AI Modal */}
-        <KollavoAiModal isOpen={aiModalOpen} onClose={() => setAiModalOpen(false)} />
+        {/* MAVORA AI Modal */}
+        <MAVORAAiModal isOpen={aiModalOpen} onClose={() => setAiModalOpen(false)} />
 
         {/* Google Workspace Modal */}
         <GoogleWorkspaceModal isOpen={workspaceModalOpen} onClose={() => setWorkspaceModalOpen(false)} />

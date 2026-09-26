@@ -1,34 +1,34 @@
 import React, { useState } from 'react';
-import { 
-  ShieldAlert, 
-  Users, 
-  Briefcase, 
-  DollarSign, 
-  BarChart3, 
-  AlertTriangle, 
-  CheckCircle2, 
-  Clock, 
-  Layers, 
-  RefreshCw, 
-  Filter, 
-  Search, 
-  Globe, 
-  Lock, 
-  Eye, 
+import {
+  ShieldAlert,
+  Users,
+  Briefcase,
+  DollarSign,
+  BarChart3,
+  AlertTriangle,
+  CheckCircle2,
+  Clock,
+  Layers,
+  RefreshCw,
+  Filter,
+  Search,
+  Globe,
+  Lock,
+  Eye,
   ExternalLink,
   ChevronRight,
   TrendingUp,
   FileText
 } from 'lucide-react';
-import { 
-  PLATFORM_TRACTION, 
-  FOUNDER_METRICS, 
-  SUPPORTED_CURRENCIES, 
-  EXCHANGE_RATE_METADATA, 
-  kollavoStore, 
-  formatCurrency, 
-  RiskFlag 
-} from '../data/kollavoStore';
+import {
+  PLATFORM_TRACTION,
+  FOUNDER_METRICS,
+  SUPPORTED_CURRENCIES,
+  EXCHANGE_RATE_METADATA,
+  mavoraStore,
+  formatCurrency,
+  RiskFlag
+} from '../data/mavoraStore';
 import { useMode } from '../context/ModeContext';
 import { Button } from '../components/ui/Button';
 
@@ -36,12 +36,12 @@ interface AdminPageProps {
   onNavigate: (path: string) => void;
 }
 
-type AdminRole = 
-  | 'SUPER_ADMIN' 
-  | 'ADMIN' 
-  | 'FINANCE_ADMIN' 
-  | 'SUPPORT_ADMIN' 
-  | 'MODERATOR' 
+type AdminRole =
+  | 'SUPER_ADMIN'
+  | 'ADMIN'
+  | 'FINANCE_ADMIN'
+  | 'SUPPORT_ADMIN'
+  | 'MODERATOR'
   | 'ANALYTICS_ADMIN';
 
 export const AdminPage: React.FC<AdminPageProps> = ({ onNavigate }) => {
@@ -51,12 +51,12 @@ export const AdminPage: React.FC<AdminPageProps> = ({ onNavigate }) => {
     'overview' | 'users' | 'campaigns' | 'ledger' | 'integrations' | 'currencies' | 'disputes' | 'risk' | 'audit'
   >('overview');
 
-  const creators = kollavoStore.getCreators(isDemoDataEnabled);
-  const brands = kollavoStore.getBrands(isDemoDataEnabled);
-  const campaigns = kollavoStore.getCampaigns(isDemoDataEnabled);
-  const ledger = kollavoStore.getLedger(isDemoDataEnabled);
-  const riskFlags = kollavoStore.getRiskFlags(isDemoDataEnabled);
-  const disputes = kollavoStore.getDisputes(isDemoDataEnabled);
+  const creators = mavoraStore.getCreators(isDemoDataEnabled);
+  const brands = mavoraStore.getBrands(isDemoDataEnabled);
+  const campaigns = mavoraStore.getCampaigns(isDemoDataEnabled);
+  const ledger = mavoraStore.getLedger(isDemoDataEnabled);
+  const riskFlags = mavoraStore.getRiskFlags(isDemoDataEnabled);
+  const disputes = mavoraStore.getDisputes(isDemoDataEnabled);
 
   return (
     <div className="min-h-screen bg-[#050814] text-[#F8FAFC] flex flex-col font-sans">
@@ -68,7 +68,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({ onNavigate }) => {
             className="flex items-center gap-2 font-bold text-base tracking-tight text-white hover:opacity-80 transition-opacity"
           >
             <span className="w-2.5 h-2.5 rounded-full bg-[#38BDF8] animate-pulse"></span>
-            <span>Kollavo Operations</span>
+            <span>MAVORA Operations</span>
           </button>
           <span className="text-[#64748B]">/</span>
           <span className="text-xs font-mono px-2 py-0.5 rounded bg-red-500/10 text-red-400 border border-red-500/20">
@@ -189,7 +189,7 @@ export const AdminPage: React.FC<AdminPageProps> = ({ onNavigate }) => {
                 <div className="p-5 rounded-2xl bg-[#0A1020] border border-emerald-500/20 space-y-2">
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-mono uppercase text-emerald-400">
-                      Actual Kollavo Platform Metrics
+                      Actual MAVORA Platform Metrics
                     </span>
                     <span className="text-[10px] px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 font-mono">
                       Real Operational Telemetry

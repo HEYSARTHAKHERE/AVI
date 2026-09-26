@@ -32,7 +32,7 @@ export const PrivacyPage: React.FC<PrivacyPageProps> = ({ onNavigate }) => {
           <section className="space-y-2">
             <h2 className="text-sm font-bold text-[var(--color-text-primary)]">1. Data Minimization & Principles</h2>
             <p>
-              Kollavo collects only information necessary to deliver creator profile creation, verified social telemetry benchmarking, and escrow collaboration processing. We do not sell user data to advertising brokers.
+              MAVORA collects only information necessary to deliver creator profile creation, verified social telemetry benchmarking, and escrow collaboration processing. We do not sell user data to advertising brokers.
             </p>
           </section>
 
@@ -46,14 +46,14 @@ export const PrivacyPage: React.FC<PrivacyPageProps> = ({ onNavigate }) => {
           <section className="space-y-2">
             <h2 className="text-sm font-bold text-[var(--color-text-primary)]">3. Data Retention & Deletion Rights</h2>
             <p>
-              Users hold the right to disconnect any social or workspace integration instantly through the Account Settings. You may request complete account data deletion at any time by contacting privacy@kollavo.ai. Upon receipt, all profile records and synced analytics are purged within 30 calendar days.
+              Users hold the right to disconnect any social or workspace integration instantly through the Account Settings. You may request complete account data deletion at any time by contacting privacy@mavora.ai. Upon receipt, all profile records and synced analytics are purged within 30 calendar days.
             </p>
           </section>
 
           <section className="space-y-2">
             <h2 className="text-sm font-bold text-[var(--color-text-primary)]">4. Payment & Financial Ledger Security</h2>
             <p>
-              All payments, escrow holdings, and creator payouts are facilitated via regulated payment processors (Stripe Payments & Connect). Kollavo stores double-entry ledger references and transaction identifiers for tax compliance without maintaining raw financial credentials.
+              All payments, escrow holdings, and creator payouts are facilitated via regulated payment processors (Stripe Payments & Connect). MAVORA stores double-entry ledger references and transaction identifiers for tax compliance without maintaining raw financial credentials.
             </p>
           </section>
         </div>

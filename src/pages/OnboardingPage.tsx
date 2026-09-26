@@ -16,7 +16,7 @@ interface OnboardingPageProps {
   onNavigate: (path: string) => void;
 }
 
-const getStorageKey = (uid?: string) => `kollavo_onboarding_draft_${uid || 'guest'}`;
+const getStorageKey = (uid?: string) => `mavora_onboarding_draft_${uid || 'guest'}`;
 
 const STEPS = [
   { number: '01', title: 'Identity' },
@@ -132,7 +132,7 @@ export const OnboardingPage: React.FC<OnboardingPageProps> = ({ onNavigate }) =>
           <div className="flex items-center gap-3">
             <span className="text-xl font-bold tracking-tight text-[#141416] flex items-center gap-2">
               <span className="w-2.5 h-2.5 rounded-full bg-[#8EA633]"></span>
-              Kollavo
+              MAVORA
             </span>
             <span className="text-xs text-[#888894]">·</span>
             <span className="text-xs font-semibold uppercase tracking-wider text-[#575762] hidden sm:inline">
@@ -279,7 +279,7 @@ export const OnboardingPage: React.FC<OnboardingPageProps> = ({ onNavigate }) =>
                       <div className="flex items-center justify-between pb-2 border-b border-[rgba(20,20,22,0.06)]">
                         <span className="font-semibold text-[#141416]">Public Shareable URL:</span>
                         <span className="font-mono text-[#8EA633] font-bold">
-                          kollavo.com/creator/{formData.username}
+                          mavora.com/creator/{formData.username}
                         </span>
                       </div>
                       <div className="flex items-center justify-between">
@@ -380,7 +380,7 @@ export const OnboardingPage: React.FC<OnboardingPageProps> = ({ onNavigate }) =>
 
       {/* Footer */}
       <footer className="py-4 text-center text-[11px] text-[#888894] border-t border-[rgba(20,20,22,0.06)]">
-        Kollavo Creator Operating System · Phase 3 Onboarding & Identity
+        MAVORA Creator Operating System · Phase 3 Onboarding & Identity
       </footer>
     </div>
   );

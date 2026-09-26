@@ -263,7 +263,7 @@ export const Features: React.FC<FeaturesProps> = ({ onOpenProfile, onOpenAuth })
             <div className="mt-6 pt-5 border-t border-[rgba(20,20,22,0.06)] bg-[#FAF9F5] rounded-xl p-4 flex flex-col sm:flex-row items-center justify-between gap-3">
               <div className="flex items-center gap-2 text-sm font-mono text-[#141416] bg-[#FFFFFF] border border-[rgba(20,20,22,0.08)] px-3.5 py-2 rounded-lg w-full sm:w-auto">
                 <LinkIcon className="w-3.5 h-3.5 text-[#8EA633]" />
-                <span>kollavo.com/creator/<strong className="text-[#8EA633]">sarthak</strong></span>
+                <span>mavora.com/creator/<strong className="text-[#8EA633]">sarthak</strong></span>
               </div>
               <button
                 onClick={onOpenProfile}

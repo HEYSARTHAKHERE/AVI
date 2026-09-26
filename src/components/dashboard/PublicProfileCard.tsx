@@ -52,7 +52,7 @@ export const PublicProfileCard: React.FC<PublicProfileCardProps> = ({
             )}
           </div>
           <p className="text-xs text-[#575762] mt-0.5">
-            This card represents how brands, agencies, and the public view your presence on Kollavo.
+            This card represents how brands, agencies, and the public view your presence on MAVORA.
           </p>
         </div>
 
@@ -114,7 +114,7 @@ export const PublicProfileCard: React.FC<PublicProfileCardProps> = ({
               </span>
               <span className="text-[#888894]">·</span>
               <span className="font-mono text-[11px] text-[#575762] truncate">
-                kollavo.com/creator/{displayUsername}
+                mavora.com/creator/{displayUsername}
               </span>
             </div>
 

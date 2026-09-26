@@ -58,7 +58,7 @@ export const PublicCreatorPage: React.FC<PublicCreatorPageProps> = ({
               className="text-xl font-bold tracking-tight text-[#141416] flex items-center gap-2"
             >
               <span className="w-2.5 h-2.5 rounded-full bg-[#8EA633]"></span>
-              Kollavo
+              MAVORA
             </button>
 
             <button
@@ -106,14 +106,14 @@ export const PublicCreatorPage: React.FC<PublicCreatorPageProps> = ({
                 fullWidth
                 onClick={() => onNavigate('/')}
               >
-                Explore Kollavo
+                Explore MAVORA
               </Button>
             </div>
           </div>
         </main>
 
         <footer className="py-4 text-center text-[11px] text-[#888894] border-t border-[rgba(20,20,22,0.06)]">
-          Kollavo Creator Operating System · Privacy Protected
+          MAVORA Creator Operating System · Privacy Protected
         </footer>
       </div>
     );
@@ -131,7 +131,7 @@ export const PublicCreatorPage: React.FC<PublicCreatorPageProps> = ({
               className="text-xl font-bold tracking-tight text-[#141416] flex items-center gap-2"
             >
               <span className="w-2.5 h-2.5 rounded-full bg-[#8EA633]"></span>
-              Kollavo
+              MAVORA
             </button>
 
             <button
@@ -167,14 +167,14 @@ export const PublicCreatorPage: React.FC<PublicCreatorPageProps> = ({
                 fullWidth
                 onClick={() => onNavigate('/')}
               >
-                Explore Kollavo
+                Explore MAVORA
               </Button>
             </div>
           </div>
         </main>
 
         <footer className="py-4 text-center text-[11px] text-[#888894] border-t border-[rgba(20,20,22,0.06)]">
-          Kollavo Creator Operating System · Profile Directory
+          MAVORA Creator Operating System · Profile Directory
         </footer>
       </div>
     );

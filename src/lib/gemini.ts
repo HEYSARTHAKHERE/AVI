@@ -48,15 +48,15 @@ export async function generateCampaignBrief(input: {
     ],
     timeline: '14 calendar days from product receipt: Draft delivery in 7 days, review in 48h, publication on agreed date.',
     contentRequirements: [
-      `Clean aesthetic lighting matching Kollavo luxury editorial standards`,
+      `Clean aesthetic lighting matching MAVORA luxury editorial standards`,
       `Honest, natural creator voice without forced corporate jargon`,
       `Clear product visibility in the first 3 seconds`,
     ],
     callToAction: 'Explore the collection through the link in bio / sticker with exclusive community code.',
-    hashtags: [`#${(input.productService || 'Campaign').replace(/\s+/g, '')}`, '#KollavoPartner', '#SponsoredContent'],
+    hashtags: [`#${(input.productService || 'Campaign').replace(/\s+/g, '')}`, '#MAVORAPartner', '#SponsoredContent'],
     mentions: ['@brand_official'],
     usageRights: '30-day organic and paid digital ad amplification across brand social channels.',
-    approvalProcess: 'Draft submission via Kollavo Content Approval Workspace → 1 revision window included → Final approval before live posting.',
+    approvalProcess: 'Draft submission via MAVORA Content Approval Workspace → 1 revision window included → Final approval before live posting.',
   };
 }
 
@@ -76,12 +76,12 @@ export async function generateCreatorProposal(input: {
   return {
     proposalPitch: `Hi ${input.brandName} team! I've reviewed your brief for ${input.campaignTitle}. My audience is deeply engaged with contemporary ${input.creatorCategory.toLowerCase()} aesthetics, and I would love to craft a high-fidelity narrative that seamlessly showcases your brand while preserving organic creator authenticity.`,
     contentAngle: `Visual documentary style focusing on tactile product details, everyday utility, and minimalist luxury aesthetics that naturally inspire viewer trust.`,
-    suggestedDeliverablesTimeline: `Asset delivery within 7 business days of agreement. Fully aligned with your revisions workflow on the Kollavo workspace.`,
+    suggestedDeliverablesTimeline: `Asset delivery within 7 business days of agreement. Fully aligned with your revisions workflow on the MAVORA workspace.`,
   };
 }
 
-// 3. AI Assistant Contextual Chat for Kollavo (Creator & Brand)
-export async function askKollavoAssistant(params: {
+// 3. AI Assistant Contextual Chat for MAVORA (Creator & Brand)
+export async function askMAVORAAssistant(params: {
   role: 'creator' | 'brand';
   userMessage: string;
   contextData?: Record<string, any>;
@@ -113,7 +113,7 @@ export async function askKollavoAssistant(params: {
 
   // Graceful rule-based response
   return {
-    answer: `Here is strategic guidance for your ${params.role} workflow: Establish clear deliverable acceptance criteria (draft, revisions window, final approval), specify usage rights (organic vs paid ad amplification), and verify that all funds remain in Kollavo Escrow until final asset sign-off.`,
+    answer: `Here is strategic guidance for your ${params.role} workflow: Establish clear deliverable acceptance criteria (draft, revisions window, final approval), specify usage rights (organic vs paid ad amplification), and verify that all funds remain in MAVORA Escrow until final asset sign-off.`,
     isAiGenerated: true,
     verifiedDataTags: ['Platform Standard Best Practice · AI Advisory Note'],
   };

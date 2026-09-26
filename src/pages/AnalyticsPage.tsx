@@ -12,7 +12,7 @@ import {
   ArrowRight
 } from 'lucide-react';
 import { DashboardLayout } from '../components/dashboard/DashboardLayout';
-import { kollavoStore, formatCurrency, INITIAL_SOCIAL_INTEGRATIONS } from '../data/kollavoStore';
+import { mavoraStore, formatCurrency, INITIAL_SOCIAL_INTEGRATIONS } from '../data/mavoraStore';
 import { useMode } from '../context/ModeContext';
 import { Button } from '../components/ui/Button';
 

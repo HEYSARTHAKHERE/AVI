@@ -59,7 +59,7 @@ export const ResetPasswordPage: React.FC<ResetPasswordPageProps> = ({ onNavigate
             className="text-xl font-bold tracking-tight text-[#141416] flex items-center gap-2"
           >
             <span className="w-2.5 h-2.5 rounded-full bg-[#8EA633]"></span>
-            Kollavo
+            MAVORA
           </button>
         </div>
       </header>
@@ -78,7 +78,7 @@ export const ResetPasswordPage: React.FC<ResetPasswordPageProps> = ({ onNavigate
                   Password updated
                 </h2>
                 <p className="mt-2 text-xs sm:text-sm text-[#575762] leading-relaxed">
-                  Your password has been changed successfully. You can now use your new password to sign into your Kollavo account.
+                  Your password has been changed successfully. You can now use your new password to sign into your MAVORA account.
                 </p>
               </div>
 
@@ -89,7 +89,7 @@ export const ResetPasswordPage: React.FC<ResetPasswordPageProps> = ({ onNavigate
                   fullWidth
                   onClick={() => onNavigate('/dashboard')}
                 >
-                  <span>Continue to Kollavo</span>
+                  <span>Continue to MAVORA</span>
                   <ArrowRight className="w-4 h-4 ml-1.5" />
                 </Button>
               </div>
@@ -101,7 +101,7 @@ export const ResetPasswordPage: React.FC<ResetPasswordPageProps> = ({ onNavigate
                   Choose new password.
                 </h1>
                 <p className="mt-1.5 text-xs sm:text-sm text-[#575762]">
-                  Create a secure password for your Kollavo creator account.
+                  Create a secure password for your MAVORA creator account.
                 </p>
               </div>
 
@@ -168,7 +168,7 @@ export const ResetPasswordPage: React.FC<ResetPasswordPageProps> = ({ onNavigate
       </main>
 
       <footer className="py-4 text-center text-[11px] text-[#888894] border-t border-[rgba(20,20,22,0.06)]">
-        Kollavo Creator Operating System · Phase 2 Secure Authentication
+        MAVORA Creator Operating System · Phase 2 Secure Authentication
       </footer>
     </div>
   );

@@ -5,7 +5,7 @@ export const Testimonials: React.FC = () => {
   const testimonials = [
     {
       quote:
-        'Kollavo replaced my scattered Canva media kits and Notion pitch logs. Luxury brands take me 10x more seriously when I send a live rate card with verified engagement metrics.',
+        'MAVORA replaced my scattered Canva media kits and Notion pitch logs. Luxury brands take me 10x more seriously when I send a live rate card with verified engagement metrics.',
       author: 'Marcus Vance',
       role: 'Fashion & Tailoring Creator',
       stats: 'Closed $18,400 in 60 days',

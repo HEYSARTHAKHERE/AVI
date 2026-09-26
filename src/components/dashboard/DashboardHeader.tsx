@@ -88,16 +88,16 @@ export const DashboardHeader: React.FC<DashboardHeaderProps> = ({
           </button>
         )}
 
-        {/* Kollavo AI Trigger */}
+        {/* MAVORA AI Trigger */}
         {onOpenAi && (
           <button
             type="button"
             onClick={onOpenAi}
             className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-[#141416] text-[#FAF9F5] hover:bg-[#202025] text-xs font-semibold transition-all shadow-2xs"
-            title="Kollavo AI Assistant"
+            title="MAVORA AI Assistant"
           >
             <Sparkles className="w-3.5 h-3.5 text-[#8EA633]" />
-            <span className="hidden sm:inline text-xs">Kollavo AI</span>
+            <span className="hidden sm:inline text-xs">MAVORA AI</span>
           </button>
         )}
 
