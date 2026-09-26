@@ -1,0 +1,70 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    /* Color System - Warm off-white / editorial luxury */
+    --color-bg-primary: #FAF9F5;
+    --color-bg-surface: #FFFFFF;
+    --color-bg-subtle: #F3F1EC;
+    --color-bg-card: #FFFFFF;
+    --color-bg-muted: #EBE8E1;
+
+    --color-text-primary: #121316;
+    --color-text-secondary: #5C5C66;
+    --color-text-muted: #888894;
+    
+    /* Subtle hairline borders */
+    --color-border-subtle: rgba(18, 19, 22, 0.07);
+    --color-border-medium: rgba(18, 19, 22, 0.12);
+    --color-border-strong: rgba(18, 19, 22, 0.22);
+
+    /* Sophisticated muted lime / olive accent */
+    --color-accent-lime: #8EA633;
+    --color-accent-lime-hover: #7E942B;
+    --color-accent-lime-tint: #F3F6E8;
+    --color-accent-lime-text: #3D4A14;
+
+    /* Shadows */
+    --shadow-subtle: 0 1px 2px rgba(18, 19, 22, 0.04);
+    --shadow-card: 0 4px 16px -2px rgba(18, 19, 22, 0.05), 0 1px 3px rgba(18, 19, 22, 0.02);
+    --shadow-elevated: 0 12px 36px -4px rgba(18, 19, 22, 0.08), 0 2px 8px rgba(18, 19, 22, 0.03);
+  }
+
+  body {
+    font-family: 'Geist', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: var(--color-bg-primary);
+    color: var(--color-text-primary);
+    letter-spacing: -0.011em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, .font-display {
+    font-family: 'Plus Jakarta Sans', 'Geist', sans-serif;
+    letter-spacing: -0.025em;
+  }
+
+  .font-mono-data {
+    font-family: 'Geist Mono', monospace;
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+/* Custom utility classes */
+@layer utilities {
+  .border-hairline {
+    border-color: var(--color-border-subtle);
+  }
+  .border-hairline-medium {
+    border-color: var(--color-border-medium);
+  }
+  .bg-canvas {
+    background-color: var(--color-bg-primary);
+  }
+  .bg-surface {
+    background-color: var(--color-bg-surface);
+  }
+  .bg-subtle-surface {
+    background-color: var(--color-bg-subtle);
+  }
+}

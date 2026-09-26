@@ -1,0 +1,6 @@
+{
+  "name": "Kollavo",
+  "description": "The operating system for creator-brand collaborations. Build professional creator profiles, dynamic media kits, and manage brand deals in one workspace.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
