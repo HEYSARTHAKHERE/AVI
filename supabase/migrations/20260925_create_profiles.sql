@@ -1,5 +1,5 @@
 -- ==============================================================================
--- KOLLAVO DATABASE MIGRATION: PHASE 2 AUTHENTICATION & PROFILES
+-- MAVORA DATABASE MIGRATION: PHASE 2 AUTHENTICATION & PROFILES
 -- File: supabase/migrations/20260925_create_profiles.sql
 -- Description: Sets up the profiles table, constraints, RLS policies, and triggers.
 -- ==============================================================================

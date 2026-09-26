@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Users, CheckCircle2, XCircle, Bookmark, Check, ArrowRight, ShieldCheck, Sparkles } from 'lucide-react';
 import { DashboardLayout } from '../components/dashboard/DashboardLayout';
-import { kollavoStore, formatCurrency, CampaignApplication } from '../data/kollavoStore';
+import { mavoraStore, formatCurrency, CampaignApplication } from '../data/mavoraStore';
 import { useMode } from '../context/ModeContext';
 import { Button } from '../components/ui/Button';
 
@@ -11,7 +11,7 @@ interface BrandApplicationsPageProps {
 
 export const BrandApplicationsPage: React.FC<BrandApplicationsPageProps> = ({ onNavigate }) => {
   const { isDemoDataEnabled, activeCurrency } = useMode();
-  const applications = kollavoStore.getApplications(isDemoDataEnabled);
+  const applications = mavoraStore.getApplications(isDemoDataEnabled);
   const [acceptedId, setAcceptedId] = useState<string | null>(null);
 
   const handleAcceptProposal = (app: CampaignApplication) => {

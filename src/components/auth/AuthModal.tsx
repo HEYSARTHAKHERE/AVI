@@ -101,7 +101,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
     <Dialog
       isOpen={isOpen}
       onClose={onClose}
-      title={mode === 'signup' ? 'Create your Kollavo account' : 'Welcome back to Kollavo'}
+      title={mode === 'signup' ? 'Create your MAVORA account' : 'Welcome back to MAVORA'}
       description={
         mode === 'signup'
           ? 'Join the operating system for professional creators and influencers.'
@@ -182,7 +182,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
                       username: e.target.value.toLowerCase().replace(/[^a-z0-9_-]/g, ''),
                     })
                   }
-                  helperText="Your public profile will be kollavo.com/creator/[username]"
+                  helperText="Your public profile will be mavora.com/creator/[username]"
                   leftIcon={<AtSign className="w-4 h-4" />}
                   required
                 />

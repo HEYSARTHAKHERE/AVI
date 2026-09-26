@@ -1,6 +1,6 @@
 import { boolean, integer, pgTable, serial, text, timestamp } from 'drizzle-orm/pg-core';
 
-// 1. Users table (Firebase Auth UID + Kollavo role)
+// 1. Users table (Firebase Auth UID + MAVORA role)
 export const users = pgTable('users', {
   id: serial('id').primaryKey(),
   uid: text('uid').notNull().unique(), // Firebase Auth UID

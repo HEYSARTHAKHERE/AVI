@@ -197,7 +197,7 @@ export const mockCollaborations: CollaborationRecord[] = [
     currency: 'USD',
     deadline: '2026-10-02',
     status: 'Inquiry',
-    notes: 'Inbound through Kollavo media kit. Budget matches rate card.',
+    notes: 'Inbound through MAVORA media kit. Budget matches rate card.',
     deliverables: ['3x Grid Posts'],
     updatedAt: '5 hours ago',
   },

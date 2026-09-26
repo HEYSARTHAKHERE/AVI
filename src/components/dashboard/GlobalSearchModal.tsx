@@ -43,7 +43,7 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
       id: 'public-profile',
       title: `Public Profile (@${username})`,
       category: 'Public Link',
-      description: `View your public page at kollavo.com/creator/${username}`,
+      description: `View your public page at mavora.com/creator/${username}`,
       path: `/creator/${username}`,
       icon: ExternalLink,
       isExternal: true,
@@ -268,7 +268,7 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({
               ↵
             </kbd>
           </div>
-          <span>Kollavo Quick Search</span>
+          <span>MAVORA Quick Search</span>
         </div>
       </div>
     </div>

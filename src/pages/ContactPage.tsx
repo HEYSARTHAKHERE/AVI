@@ -33,7 +33,7 @@ export const ContactPage: React.FC<ContactPageProps> = ({ onNavigate }) => {
             Get In Touch
           </span>
           <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight">
-            Contact Kollavo Team
+            Contact MAVORA Team
           </h1>
           <p className="text-sm text-[var(--color-text-secondary)] leading-relaxed">
             Have questions regarding creator verification, enterprise brand onboarding, or API integrations? Our operations team responds within 24 business hours.

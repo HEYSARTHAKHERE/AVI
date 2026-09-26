@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import { Sparkles, X, Send, Bot, Check, Copy, ArrowRight, ShieldCheck } from 'lucide-react';
 import { useMode } from '../../context/ModeContext';
-import { askKollavoAssistant, generateCampaignBrief, generateCreatorProposal } from '../../lib/gemini';
+import { askMAVORAAssistant, generateCampaignBrief, generateCreatorProposal } from '../../lib/gemini';
 import { Button } from '../ui/Button';
 
-interface KollavoAiModalProps {
+interface MAVORAAiModalProps {
   isOpen: boolean;
   onClose: () => void;
   initialPrompt?: string;
 }
 
-export const KollavoAiModal: React.FC<KollavoAiModalProps> = ({ isOpen, onClose, initialPrompt = '' }) => {
+export const MAVORAAiModal: React.FC<MAVORAAiModalProps> = ({ isOpen, onClose, initialPrompt = '' }) => {
   const { activeMode } = useMode();
   const [messages, setMessages] = useState<
     { role: 'user' | 'ai'; text: string; verifiedTags?: string[] }[]
@@ -19,8 +19,8 @@ export const KollavoAiModal: React.FC<KollavoAiModalProps> = ({ isOpen, onClose,
       role: 'ai',
       text:
         activeMode === 'creator'
-          ? "Hello! I am Kollavo AI for Creators. I can help summarize campaign briefs, prepare compelling collaboration proposals, structure your deliverables timeline, and explain your verified social analytics. What are you working on today?"
-          : "Welcome! I am Kollavo AI for Brands. I can help generate structured campaign briefs, identify high-fit creator profiles based on transparent criteria, and organize your collaboration deliverables. How can I assist your campaign?",
+          ? "Hello! I am MAVORA AI for Creators. I can help summarize campaign briefs, prepare compelling collaboration proposals, structure your deliverables timeline, and explain your verified social analytics. What are you working on today?"
+          : "Welcome! I am MAVORA AI for Brands. I can help generate structured campaign briefs, identify high-fit creator profiles based on transparent criteria, and organize your collaboration deliverables. How can I assist your campaign?",
       verifiedTags: ['AI Advisory Note · Distinct from Verified Platform Data'],
     },
   ]);
@@ -40,7 +40,7 @@ export const KollavoAiModal: React.FC<KollavoAiModalProps> = ({ isOpen, onClose,
     setLoading(true);
 
     try {
-      const res = await askKollavoAssistant({
+      const res = await askMAVORAAssistant({
         role: activeMode === 'brand' ? 'brand' : 'creator',
         userMessage: userText,
       });
@@ -58,7 +58,7 @@ export const KollavoAiModal: React.FC<KollavoAiModalProps> = ({ isOpen, onClose,
         ...prev,
         {
           role: 'ai',
-          text: "I experienced a temporary network latency. However, remember the Kollavo collaboration rule: always ground deliverable timelines in verified creator capabilities and clear usage rights.",
+          text: "I experienced a temporary network latency. However, remember the MAVORA collaboration rule: always ground deliverable timelines in verified creator capabilities and clear usage rights.",
           verifiedTags: ['Platform Standard Best Practice'],
         },
       ]);
@@ -84,7 +84,7 @@ export const KollavoAiModal: React.FC<KollavoAiModalProps> = ({ isOpen, onClose,
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h3 className="text-sm font-bold tracking-tight text-white">Kollavo AI</h3>
+                <h3 className="text-sm font-bold tracking-tight text-white">MAVORA AI</h3>
                 <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-[#38BDF8]/10 text-[#38BDF8] border border-[#38BDF8]/20">
                   {activeMode === 'brand' ? 'Brand Campaign Advisor' : 'Creator Assistant'}
                 </span>
@@ -203,8 +203,8 @@ export const KollavoAiModal: React.FC<KollavoAiModalProps> = ({ isOpen, onClose,
             onChange={(e) => setInput(e.target.value)}
             placeholder={
               activeMode === 'creator'
-                ? 'Ask Kollavo AI to help write proposals, summarize briefs, or structure deliverables...'
-                : 'Ask Kollavo AI to generate campaign briefs, recommend creator fit factors, or draft terms...'
+                ? 'Ask MAVORA AI to help write proposals, summarize briefs, or structure deliverables...'
+                : 'Ask MAVORA AI to generate campaign briefs, recommend creator fit factors, or draft terms...'
             }
             className="flex-1 bg-[#050814] border border-white/10 rounded-xl px-3.5 py-2 text-xs text-white placeholder-[#64748B] focus:outline-none focus:border-[#38BDF8]"
           />

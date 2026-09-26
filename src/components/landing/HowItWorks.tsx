@@ -15,7 +15,7 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({ onOpenAuth }) => {
       title: 'Create your profile',
       summary: 'Claim your username and set your category, visual direction, and verified credentials.',
       detail:
-        'Pick your specialty from fashion, lifestyle, photography, tech, or UGC. Kollavo structures your editorial biography and location effortlessly.',
+        'Pick your specialty from fashion, lifestyle, photography, tech, or UGC. MAVORA structures your editorial biography and location effortlessly.',
       icon: UserPlus,
       snippet: {
         heading: 'Profile Setup',
@@ -47,7 +47,7 @@ export const HowItWorks: React.FC<HowItWorksProps> = ({ onOpenAuth }) => {
       title: 'Build your media kit',
       summary: 'Generate an always-up-to-date rate card and commercial press kit with one click.',
       detail:
-        'No more exporting broken PDFs from Canva. Your Kollavo media kit updates automatically with live stats, packaged deliverables, and clear commercial pricing.',
+        'No more exporting broken PDFs from Canva. Your MAVORA media kit updates automatically with live stats, packaged deliverables, and clear commercial pricing.',
       icon: FileText,
       snippet: {
         heading: 'Rate Card Engine',

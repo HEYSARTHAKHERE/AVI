@@ -1,5 +1,5 @@
 -- ==============================================================================
--- KOLLAVO DATABASE MIGRATION: PHASE 3 ONBOARDING, CATEGORIES & SOCIAL PRESENCE
+-- MAVORA DATABASE MIGRATION: PHASE 3 ONBOARDING, CATEGORIES & SOCIAL PRESENCE
 -- File: supabase/migrations/20260925_phase3_onboarding.sql
 -- Description: Extends profiles, creates categories, profile_categories, 
 --              social_accounts tables, RLS policies, and storage bucket.

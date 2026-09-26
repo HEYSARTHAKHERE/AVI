@@ -27,7 +27,7 @@ export const isSupabaseConfigured: boolean =
   supabaseUrl.startsWith('https://');
 
 // Initialize the Supabase client
-const defaultUrl = isSupabaseConfigured ? supabaseUrl : 'https://placeholder-kollavo.supabase.co';
+const defaultUrl = isSupabaseConfigured ? supabaseUrl : 'https://placeholder-mavora.supabase.co';
 const defaultKey = isSupabaseConfigured ? supabaseAnonKey : 'placeholder-anon-key';
 
 export const supabase: SupabaseClient = createClient(defaultUrl, defaultKey, {
@@ -35,7 +35,7 @@ export const supabase: SupabaseClient = createClient(defaultUrl, defaultKey, {
     persistSession: true,
     autoRefreshToken: true,
     detectSessionInUrl: true,
-    storageKey: 'kollavo-auth-token',
+    storageKey: 'mavora-auth-token',
   },
 });
 
@@ -71,7 +71,7 @@ export async function checkUsernameAvailability(username: string, currentUserId?
   }
 
   if (!isSupabaseConfigured) {
-    const isMockTaken = normalized === 'taken_user' || (normalized === 'kollavo' && currentUserId !== 'demo_admin');
+    const isMockTaken = normalized === 'taken_user' || (normalized === 'mavora' && currentUserId !== 'demo_admin');
     return {
       available: !isMockTaken,
       error: isMockTaken ? 'That username is already taken.' : undefined,
@@ -335,7 +335,7 @@ export async function getPublicCreatorProfile(username: string): Promise<{ profi
   if (normalized === 'sarthak' || normalized === 'sarthakkamdi') {
     // Check if demo user toggled privacy in localStorage
     try {
-      const stored = typeof window !== 'undefined' ? localStorage.getItem('kollavo_active_session_demo') : null;
+      const stored = typeof window !== 'undefined' ? localStorage.getItem('mavora_active_session_demo') : null;
       if (stored) {
         const { profile: localProf } = JSON.parse(stored);
         if (localProf && (localProf.username?.toLowerCase() === normalized || normalized === 'sarthak')) {
@@ -351,7 +351,7 @@ export async function getPublicCreatorProfile(username: string): Promise<{ profi
 
   // Check active demo user session in localStorage
   try {
-    const stored = typeof window !== 'undefined' ? localStorage.getItem('kollavo_active_session_demo') : null;
+    const stored = typeof window !== 'undefined' ? localStorage.getItem('mavora_active_session_demo') : null;
     if (stored) {
       const { profile: localProf } = JSON.parse(stored);
       if (localProf && localProf.username?.toLowerCase() === normalized) {
@@ -392,8 +392,8 @@ export async function getPublicCreatorProfile(username: string): Promise<{ profi
 // PHASE 4: SERVICES & NOTIFICATIONS HELPERS
 // ============================================================================
 
-const SERVICES_DEMO_KEY = 'kollavo_services_demo';
-const NOTIFICATIONS_DEMO_KEY = 'kollavo_notifications_demo';
+const SERVICES_DEMO_KEY = 'mavora_services_demo';
+const NOTIFICATIONS_DEMO_KEY = 'mavora_notifications_demo';
 
 const DEFAULT_DEMO_SERVICES: DbService[] = [
   {
@@ -433,7 +433,7 @@ const DEFAULT_DEMO_NOTIFICATIONS: DbNotification[] = [
     id: 'notif_1',
     profile_id: 'usr_sarthak_01',
     type: 'welcome',
-    title: 'Welcome to Kollavo',
+    title: 'Welcome to MAVORA',
     message: 'Your creator workspace is active. Manage your profile, showcase your services, and share your public presence.',
     is_read: true,
     link: '/dashboard',
@@ -675,11 +675,11 @@ export async function updateFullProfile(
 ): Promise<{ success: boolean; error?: string }> {
   if (!isSupabaseConfigured) {
     try {
-      const stored = localStorage.getItem('kollavo_active_session_demo');
+      const stored = localStorage.getItem('mavora_active_session_demo');
       if (stored) {
         const parsed = JSON.parse(stored);
         const updatedProfile = { ...parsed.profile, ...updates, updated_at: new Date().toISOString() };
-        localStorage.setItem('kollavo_active_session_demo', JSON.stringify({ ...parsed, profile: updatedProfile }));
+        localStorage.setItem('mavora_active_session_demo', JSON.stringify({ ...parsed, profile: updatedProfile }));
       }
       return { success: true };
     } catch (e) {

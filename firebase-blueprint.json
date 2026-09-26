@@ -2,7 +2,7 @@
   "entities": {
     "UserProfile": {
       "title": "UserProfile",
-      "description": "User account information and active role on Kollavo",
+      "description": "User account information and active role on MAVORA",
       "type": "object",
       "properties": {
         "uid": { "type": "string" },

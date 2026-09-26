@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Send, Paperclip, MessageSquare, Check, CheckCheck, Sparkles, Building2, User } from 'lucide-react';
 import { DashboardLayout } from '../components/dashboard/DashboardLayout';
-import { kollavoStore, MessageThread } from '../data/kollavoStore';
+import { mavoraStore, MessageThread } from '../data/mavoraStore';
 import { useMode } from '../context/ModeContext';
 import { useAuth } from '../context/AuthContext';
 import { Button } from '../components/ui/Button';
@@ -13,7 +13,7 @@ interface MessagesPageProps {
 export const MessagesPage: React.FC<MessagesPageProps> = ({ onNavigate }) => {
   const { activeMode, isDemoDataEnabled } = useMode();
   const { profile } = useAuth();
-  const threads = kollavoStore.getMessages(isDemoDataEnabled);
+  const threads = mavoraStore.getMessages(isDemoDataEnabled);
   const [selectedThreadId, setSelectedThreadId] = useState<string>(threads[0]?.id || '');
   const [inputMessage, setInputMessage] = useState('');
 
@@ -23,7 +23,7 @@ export const MessagesPage: React.FC<MessagesPageProps> = ({ onNavigate }) => {
     e.preventDefault();
     if (!inputMessage.trim() || !currentThread) return;
 
-    kollavoStore.addMessage(
+    mavoraStore.addMessage(
       currentThread.id,
       inputMessage.trim(),
       activeMode === 'brand' ? 'brand' : 'creator',

@@ -1,5 +1,5 @@
 -- ==============================================================================
--- KOLLAVO DATABASE MIGRATION: PHASE 3 CREATOR ONBOARDING & PROFILE FOUNDATION
+-- MAVORA DATABASE MIGRATION: PHASE 3 CREATOR ONBOARDING & PROFILE FOUNDATION
 -- File: supabase/migrations/20260926_phase3_creator_onboarding.sql
 -- Description: Extends profiles table with categories and onboarding_completed,
 --              creates social_accounts table, and configures storage policies.

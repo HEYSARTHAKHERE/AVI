@@ -72,7 +72,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({
             className="text-xl font-bold tracking-tight text-[#141416] flex items-center gap-2"
           >
             <span className="w-2.5 h-2.5 rounded-full bg-[#8EA633]"></span>
-            Kollavo
+            MAVORA
           </button>
 
           <div className="text-xs text-[#575762]">
@@ -238,7 +238,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({
       </main>
 
       <footer className="py-4 text-center text-[11px] text-[#888894] border-t border-[rgba(20,20,22,0.06)]">
-        Kollavo Creator Operating System · Phase 2 Secure Authentication
+        MAVORA Creator Operating System · Phase 2 Secure Authentication
       </footer>
     </div>
   );

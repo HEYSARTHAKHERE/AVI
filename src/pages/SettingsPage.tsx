@@ -61,7 +61,7 @@ export const SettingsPage: React.FC<SettingsPageProps> = ({ onNavigate }) => {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `kollavo-profile-${profile?.username || 'export'}.json`;
+    a.download = `mavora-profile-${profile?.username || 'export'}.json`;
     a.click();
     URL.revokeObjectURL(url);
   };

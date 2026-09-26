@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Briefcase, Search, Sparkles, Clock, CheckCircle2, ArrowRight, DollarSign, Send, X } from 'lucide-react';
-import { kollavoStore, formatCurrency, Campaign } from '../data/kollavoStore';
+import { mavoraStore, formatCurrency, Campaign } from '../data/mavoraStore';
 import { useMode } from '../context/ModeContext';
 import { useAuth } from '../context/AuthContext';
 import { Navbar } from '../components/landing/Navbar';
@@ -20,7 +20,7 @@ export const PublicCampaignsPage: React.FC<PublicCampaignsPageProps> = ({ onNavi
   const [proposalText, setProposalText] = useState('');
   const [applicationSubmitted, setApplicationSubmitted] = useState(false);
 
-  const campaigns = kollavoStore.getCampaigns(isDemoDataEnabled);
+  const campaigns = mavoraStore.getCampaigns(isDemoDataEnabled);
 
   const filtered = campaigns.filter(
     (c) =>
@@ -44,7 +44,7 @@ export const PublicCampaignsPage: React.FC<PublicCampaignsPageProps> = ({ onNavi
       signInDemoUser(true, 'creator');
     }
 
-    kollavoStore.addApplication({
+    mavoraStore.addApplication({
       campaignId: selectedCampaign.id,
       campaignTitle: selectedCampaign.title,
       brandName: selectedCampaign.brandName,
@@ -89,7 +89,7 @@ export const PublicCampaignsPage: React.FC<PublicCampaignsPageProps> = ({ onNavi
             Open Creator Collaboration Briefs
           </h1>
           <p className="text-sm text-[var(--color-text-secondary)] leading-relaxed">
-            Apply to verified campaigns funded with Kollavo escrow protection. Transparent deliverable requirements, timeline milestones, and guaranteed payout schedules.
+            Apply to verified campaigns funded with MAVORA escrow protection. Transparent deliverable requirements, timeline milestones, and guaranteed payout schedules.
           </p>
         </div>
 
@@ -185,7 +185,7 @@ export const PublicCampaignsPage: React.FC<PublicCampaignsPageProps> = ({ onNavi
                 <CheckCircle2 className="w-12 h-12 text-emerald-400 mx-auto" />
                 <h3 className="text-lg font-bold text-white">Proposal Dispatched!</h3>
                 <p className="text-xs text-[#94A3B8]">
-                  Your application for {selectedCampaign.title} has been logged in Kollavo with transparent fit indicators.
+                  Your application for {selectedCampaign.title} has been logged in MAVORA with transparent fit indicators.
                 </p>
               </div>
             ) : (

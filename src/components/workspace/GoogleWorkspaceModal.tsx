@@ -42,9 +42,9 @@ export const GoogleWorkspaceModal: React.FC<GoogleWorkspaceModalProps> = ({ isOp
 
   // Email form state
   const [emailTo, setEmailTo] = useState('brand@acme-atelier.com');
-  const [emailSubject, setEmailSubject] = useState('Kollavo Collaboration Proposal — AW26 Editorial');
+  const [emailSubject, setEmailSubject] = useState('MAVORA Collaboration Proposal — AW26 Editorial');
   const [emailBody, setEmailBody] = useState(
-    'Hello! I am reaching out through the Kollavo Operating System regarding your Autumn Tailoring campaign. Looking forward to discussing deliverables.'
+    'Hello! I am reaching out through the MAVORA Operating System regarding your Autumn Tailoring campaign. Looking forward to discussing deliverables.'
   );
 
   if (!isOpen) return null;
@@ -441,7 +441,7 @@ export const GoogleWorkspaceModal: React.FC<GoogleWorkspaceModalProps> = ({ isOp
                   <span className="font-semibold">Google Chat OAuth Space Sync Active</span>
                 </div>
                 <p className="text-xs text-[#94A3B8]">
-                  Scope authorized: <code className="text-[#38BDF8] font-mono">chat.spaces.readonly</code>. Spaces created for Kollavo campaigns allow real-time notifications for file draft approvals.
+                  Scope authorized: <code className="text-[#38BDF8] font-mono">chat.spaces.readonly</code>. Spaces created for MAVORA campaigns allow real-time notifications for file draft approvals.
                 </p>
               </div>
             </div>
@@ -464,7 +464,7 @@ export const GoogleWorkspaceModal: React.FC<GoogleWorkspaceModalProps> = ({ isOp
                 <div className="p-8 text-center bg-[#0E1626] rounded-xl border border-white/5 text-[#94A3B8]">
                   <Users className="w-8 h-8 mx-auto text-[#64748B] mb-2" />
                   <p className="font-medium text-white">No contacts synced yet</p>
-                  <p className="text-[11px] mt-1">Sync to populate brand contacts into your Kollavo Creator CRM.</p>
+                  <p className="text-[11px] mt-1">Sync to populate brand contacts into your MAVORA Creator CRM.</p>
                 </div>
               ) : (
                 <div className="space-y-2">

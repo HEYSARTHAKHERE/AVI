@@ -95,7 +95,7 @@ app.post('/api/ai/brief', async (req, res) => {
 
   if (aiClient) {
     try {
-      const prompt = `You are the Lead Creative Campaign Architect at Kollavo (creator-brand platform).
+      const prompt = `You are the Lead Creative Campaign Architect at MAVORA (creator-brand platform).
 Generate a structured, professional campaign brief draft for:
 Product/Service: ${productService}
 Objective: ${objective}
@@ -147,20 +147,20 @@ Respond in valid JSON format with the following keys:
       ],
       timeline: '14 calendar days from product receipt: Draft delivery in 7 days, review in 48h, publication on agreed date.',
       contentRequirements: [
-        `Clean aesthetic lighting matching Kollavo luxury editorial standards`,
+        `Clean aesthetic lighting matching MAVORA luxury editorial standards`,
         `Natural creator voice without scripted corporate jargon`,
         `Clear product visibility in the first 3 seconds`,
       ],
       callToAction: 'Explore the collection through the link in bio / sticker with exclusive community code.',
-      hashtags: [`#${(productService || 'Campaign').replace(/\s+/g, '')}`, '#KollavoPartner', '#SponsoredContent'],
+      hashtags: [`#${(productService || 'Campaign').replace(/\s+/g, '')}`, '#MAVORAPartner', '#SponsoredContent'],
       mentions: ['@brand_official'],
       usageRights: '30-day organic and paid digital ad amplification across brand social channels.',
-      approvalProcess: 'Draft submission via Kollavo Content Approval Workspace → 1 revision window included → Final approval before live posting.',
+      approvalProcess: 'Draft submission via MAVORA Content Approval Workspace → 1 revision window included → Final approval before live posting.',
     },
   });
 });
 
-// 4. AI Kollavo Assistant (Prompt Section 62)
+// 4. AI MAVORA Assistant (Prompt Section 62)
 app.post('/api/ai/assistant', async (req, res) => {
   const { role, userMessage } = req.body;
 
@@ -168,8 +168,8 @@ app.post('/api/ai/assistant', async (req, res) => {
     try {
       const systemInstruction =
         role === 'brand'
-          ? `You are Kollavo AI for Brands. Assist with campaign brief formulation, creator talent evaluation criteria, and contract deliverable structures. Distinguish clearly between AI advisory recommendations and verified platform data. Do not fabricate analytics.`
-          : `You are Kollavo AI for Creators. Assist with pitch proposal phrasing, rate card justification, media kit highlight structuring, and deliverable deadlines. Distinguish clearly between AI suggestions and verified social data. Do not fabricate audience metrics.`;
+          ? `You are MAVORA AI for Brands. Assist with campaign brief formulation, creator talent evaluation criteria, and contract deliverable structures. Distinguish clearly between AI advisory recommendations and verified platform data. Do not fabricate analytics.`
+          : `You are MAVORA AI for Creators. Assist with pitch proposal phrasing, rate card justification, media kit highlight structuring, and deliverable deadlines. Distinguish clearly between AI suggestions and verified social data. Do not fabricate audience metrics.`;
 
       const response = await aiClient.models.generateContent({
         model: 'gemini-2.5-flash',
@@ -191,7 +191,7 @@ app.post('/api/ai/assistant', async (req, res) => {
     success: true,
     answer:
       role === 'brand'
-        ? `For your campaign, we suggest establishing clear deliverable acceptance criteria (1x 4K Cut + 2x Story sequence) with a 48-hour revision window and holding the total fee in Kollavo Escrow until final asset approval.`
+        ? `For your campaign, we suggest establishing clear deliverable acceptance criteria (1x 4K Cut + 2x Story sequence) with a 48-hour revision window and holding the total fee in MAVORA Escrow until final asset approval.`
         : `When proposing to brands, highlight your verified engagement rate, direct previous category examples in your portfolio, and include structured turnaround milestones (e.g. 5 days for initial draft cut).`,
     verifiedDataTags: ['AI Advisory Note · Distinct from Verified Platform Data'],
   });
@@ -213,7 +213,7 @@ async function startServer() {
   }
 
   app.listen(port, '0.0.0.0', () => {
-    console.log(`Kollavo server running on http://0.0.0.0:${port}`);
+    console.log(`MAVORA server running on http://0.0.0.0:${port}`);
   });
 }
 

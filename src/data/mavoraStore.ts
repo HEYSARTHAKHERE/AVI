@@ -1,4 +1,4 @@
-// Kollavo Central Reactive Store & Multi-Tenant State Engine
+// MAVORA Central Reactive Store & Multi-Tenant State Engine
 // Strictly follows the Real Data Only rule: All demo seed records are explicitly flagged with isDemo: true.
 
 export interface CurrencyConfig {
@@ -285,7 +285,7 @@ export const INITIAL_CREATORS: Creator[] = [
       {
         id: 'pf_04',
         title: 'Barrier Repair Clinical Trial Visuals',
-        brand: 'Kollavo Glow',
+        brand: 'MAVORA Glow',
         imageUrl: '/src/assets/images/portfolio_luxury_skincare_1790400748864.jpg',
         metrics: '86K Views · 7.4% Engagement',
       },
@@ -712,7 +712,7 @@ export const INITIAL_FINANCIAL_LEDGER: FinancialLedgerEntry[] = [
     campaignTitle: 'Autumn Tailoring & Raw Edge Cashmere Editorial',
     partyName: 'Acme Studio Atelier',
     grossAmount: 1400,
-    platformFee: 70, // 5% Kollavo platform fee
+    platformFee: 70, // 5% MAVORA platform fee
     netAmount: 1400,
     currency: 'USD',
     status: 'Paid',
@@ -742,7 +742,7 @@ export const INITIAL_FINANCIAL_LEDGER: FinancialLedgerEntry[] = [
     campaignTitle: 'Summer Linen Minimalist Capsule',
     partyName: 'Sarthak Kamdi',
     grossAmount: 1200,
-    platformFee: 0, // 0% creator fee on Kollavo Standard
+    platformFee: 0, // 0% creator fee on MAVORA Standard
     netAmount: 1200,
     currency: 'USD',
     status: 'Paid',
@@ -784,7 +784,7 @@ export const INITIAL_MESSAGES: MessageThread[] = [
         id: 'msg_01',
         sender: 'brand',
         senderName: 'Claire (Acme Atelier)',
-        text: 'Hi Sarthak! We loved your proposal. Escrow is fully funded on Kollavo ($1,400 USD). Looking forward to the draft video.',
+        text: 'Hi Sarthak! We loved your proposal. Escrow is fully funded on MAVORA ($1,400 USD). Looking forward to the draft video.',
         timestamp: '2026-09-24T16:15:00Z',
       },
       {
@@ -854,7 +854,7 @@ export const INITIAL_RISK_FLAGS: RiskFlag[] = [
 ];
 
 // 12. Local Storage Synchronized Store Class
-class KollavoStoreManager {
+class MAVORAStoreManager {
   private listeners: Set<() => void> = new Set();
 
   public subscribe(listener: () => void) {
@@ -993,4 +993,4 @@ class KollavoStoreManager {
   }
 }
 
-export const kollavoStore = new KollavoStoreManager();
+export const mavoraStore = new MAVORAStoreManager();

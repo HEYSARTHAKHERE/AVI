@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Briefcase, Plus, Sparkles, Clock, CheckCircle2, DollarSign, X, Layers, Send } from 'lucide-react';
 import { DashboardLayout } from '../components/dashboard/DashboardLayout';
-import { kollavoStore, formatCurrency, Campaign } from '../data/kollavoStore';
+import { mavoraStore, formatCurrency, Campaign } from '../data/mavoraStore';
 import { generateCampaignBrief, GeneratedBrief } from '../lib/gemini';
 import { useMode } from '../context/ModeContext';
 import { Button } from '../components/ui/Button';
@@ -12,7 +12,7 @@ interface BrandCampaignsPageProps {
 
 export const BrandCampaignsPage: React.FC<BrandCampaignsPageProps> = ({ onNavigate }) => {
   const { isDemoDataEnabled, activeCurrency } = useMode();
-  const campaigns = kollavoStore.getCampaigns(isDemoDataEnabled);
+  const campaigns = mavoraStore.getCampaigns(isDemoDataEnabled);
   const [modalOpen, setModalOpen] = useState(false);
   const [aiGenerating, setAiGenerating] = useState(false);
 
@@ -48,7 +48,7 @@ export const BrandCampaignsPage: React.FC<BrandCampaignsPageProps> = ({ onNaviga
 
   const handlePublishCampaign = (e: React.FormEvent) => {
     e.preventDefault();
-    kollavoStore.addCampaign({
+    mavoraStore.addCampaign({
       brandId: 'br_01',
       brandName: 'Acme Studio Atelier',
       title: `${productService} Campaign`,

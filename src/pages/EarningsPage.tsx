@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { DollarSign, ArrowUpRight, Clock, CheckCircle2, Download, AlertCircle, ShieldCheck } from 'lucide-react';
 import { DashboardLayout } from '../components/dashboard/DashboardLayout';
-import { kollavoStore, formatCurrency, FinancialLedgerEntry } from '../data/kollavoStore';
+import { mavoraStore, formatCurrency, FinancialLedgerEntry } from '../data/mavoraStore';
 import { useMode } from '../context/ModeContext';
 import { Button } from '../components/ui/Button';
 
@@ -12,7 +12,7 @@ interface EarningsPageProps {
 export const EarningsPage: React.FC<EarningsPageProps> = ({ onNavigate }) => {
   const { isDemoDataEnabled, activeCurrency } = useMode();
   const [payoutRequested, setPayoutRequested] = useState(false);
-  const ledger = kollavoStore.getLedger(isDemoDataEnabled);
+  const ledger = mavoraStore.getLedger(isDemoDataEnabled);
 
   const availableBalance = 1200;
   const pendingEscrow = 1400;
@@ -25,13 +25,13 @@ export const EarningsPage: React.FC<EarningsPageProps> = ({ onNavigate }) => {
 
   const handleDownloadInvoice = (entry: FinancialLedgerEntry) => {
     // Generate text invoice
-    const content = `KOLLAVO COMMERCIAL COLLABORATION INVOICE
+    const content = `MAVORA COMMERCIAL COLLABORATION INVOICE
 Transaction ID: ${entry.providerTransactionId}
 Date: ${entry.timestamp}
 Campaign: ${entry.campaignTitle}
 Party: ${entry.partyName}
 Gross Amount: ${formatCurrency(entry.grossAmount, entry.currency)}
-Kollavo Platform Fee: ${formatCurrency(entry.platformFee, entry.currency)}
+MAVORA Platform Fee: ${formatCurrency(entry.platformFee, entry.currency)}
 Net Payout: ${formatCurrency(entry.netAmount, entry.currency)}
 Settlement Status: ${entry.status}
 Settlement Method: Regulated Escrow Deposit`;
@@ -40,7 +40,7 @@ Settlement Method: Regulated Escrow Deposit`;
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `Kollavo-Invoice-${entry.id}.txt`;
+    a.download = `MAVORA-Invoice-${entry.id}.txt`;
     a.click();
     URL.revokeObjectURL(url);
   };

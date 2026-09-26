@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { DollarSign, Plus, Check, Trash2, Eye, ShieldCheck, Sparkles } from 'lucide-react';
 import { DashboardLayout } from '../components/dashboard/DashboardLayout';
-import { formatCurrency, SUPPORTED_CURRENCIES } from '../data/kollavoStore';
+import { formatCurrency, SUPPORTED_CURRENCIES } from '../data/mavoraStore';
 import { useMode } from '../context/ModeContext';
 import { Button } from '../components/ui/Button';
 

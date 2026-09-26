@@ -25,7 +25,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAuth, onOpenPreview, onNav
               className="text-xl font-bold tracking-tight text-[#141416] flex items-center gap-2 text-left"
             >
               <span className="w-2.5 h-2.5 rounded-full bg-[#8EA633]"></span>
-              Kollavo
+              MAVORA
             </button>
             <p className="mt-3 text-xs sm:text-sm text-[#575762] max-w-sm leading-relaxed">
               The operating system for creator-brand collaborations. Helping creators build a verified online presence, dynamic media kits, and manage brand campaigns.
@@ -111,7 +111,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAuth, onOpenPreview, onNav
             <ul className="space-y-2 text-xs sm:text-sm">
               <li>
                 <button onClick={() => handleNav('/about')} className="hover:text-[#141416] transition-colors text-left">
-                  About Kollavo
+                  About MAVORA
                 </button>
               </li>
               <li>
@@ -135,7 +135,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenAuth, onOpenPreview, onNav
 
         {/* Bottom Bar */}
         <div className="mt-12 pt-8 border-t border-[rgba(20,20,22,0.06)] flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#888894]">
-          <p>© {new Date().getFullYear()} Kollavo Inc. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} MAVORA Inc. All rights reserved.</p>
           <div className="flex items-center gap-6">
             <span>Designed with precision</span>
             <span>Zero-pill architecture</span>

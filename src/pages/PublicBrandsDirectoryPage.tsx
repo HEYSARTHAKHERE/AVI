@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Search, Building2, CheckCircle2, ArrowRight, ExternalLink, Globe } from 'lucide-react';
-import { kollavoStore, formatCurrency, Brand } from '../data/kollavoStore';
+import { mavoraStore, formatCurrency, Brand } from '../data/mavoraStore';
 import { useMode } from '../context/ModeContext';
 import { Navbar } from '../components/landing/Navbar';
 import { Footer } from '../components/landing/Footer';
@@ -13,7 +13,7 @@ interface PublicBrandsDirectoryPageProps {
 export const PublicBrandsDirectoryPage: React.FC<PublicBrandsDirectoryPageProps> = ({ onNavigate }) => {
   const { isDemoDataEnabled } = useMode();
   const [searchTerm, setSearchTerm] = useState('');
-  const brands = kollavoStore.getBrands(isDemoDataEnabled);
+  const brands = mavoraStore.getBrands(isDemoDataEnabled);
 
   const filteredBrands = brands.filter(
     (b) =>
@@ -35,7 +35,7 @@ export const PublicBrandsDirectoryPage: React.FC<PublicBrandsDirectoryPageProps>
             Brand Ecosystem · Commercial Partners
           </span>
           <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight">
-            Brands Partnering on Kollavo
+            Brands Partnering on MAVORA
           </h1>
           <p className="text-sm text-[var(--color-text-secondary)] leading-relaxed">
             Discover verified companies, studios, and agencies launching high-production creator campaigns. Explore brand requirements and active collaboration briefs.

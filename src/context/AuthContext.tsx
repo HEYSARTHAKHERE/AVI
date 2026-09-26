@@ -160,7 +160,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           username: defaultUsername,
           full_name: defaultName,
           avatar_url: fbUser.photoURL || null,
-          bio: 'Verified creator on Kollavo.',
+          bio: 'Verified creator on MAVORA.',
           category: 'Fashion',
           categories: ['Fashion'],
           location: 'Global',
@@ -192,7 +192,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             fullName: defaultName,
             avatarUrl: fbUser.photoURL || null,
             headline: 'Visual Creator & Collaborator',
-            bio: 'Verified creator on Kollavo.',
+            bio: 'Verified creator on MAVORA.',
             category: 'Fashion',
             verified: true,
             featuredRate: 1200,
@@ -338,7 +338,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         creatorUid: fbUser.uid,
         username: normalizedUsername,
         fullName: fullName.trim(),
-        headline: 'Creator on Kollavo',
+        headline: 'Creator on MAVORA',
         category: 'Fashion',
         verified: true,
         completionPercentage: 35,
@@ -442,7 +442,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             fullName: fbUser.displayName || 'Creator',
             avatarUrl: fbUser.photoURL || null,
             headline: 'Verified Creator',
-            bio: 'Verified creator on Kollavo.',
+            bio: 'Verified creator on MAVORA.',
             category: 'Fashion',
             verified: true,
             featuredRate: 1400,
@@ -641,14 +641,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const demoUser: User = {
       id: isBrand ? 'usr_brand_01' : isAdmin ? 'usr_admin_01' : 'usr_sarthak_01',
       uid: isBrand ? 'usr_brand_01' : isAdmin ? 'usr_admin_01' : 'usr_sarthak_01',
-      email: isBrand ? 'contact@acme-atelier.com' : isAdmin ? 'ops@kollavo.ai' : 'sarthakkamdi70@gmail.com',
-      displayName: isBrand ? 'Acme Atelier' : isAdmin ? 'Kollavo Operations' : 'Sarthak Kamdi',
+      email: isBrand ? 'contact@acme-atelier.com' : isAdmin ? 'ops@mavora.ai' : 'sarthakkamdi70@gmail.com',
+      displayName: isBrand ? 'Acme Atelier' : isAdmin ? 'MAVORA Operations' : 'Sarthak Kamdi',
       photoURL: isBrand
         ? 'https://images.unsplash.com/photo-1544816155-12df9643f363?w=120&auto=format&fit=crop&q=80'
         : '/src/assets/images/creator_sarthak_avatar_1790400722235.jpg',
       app_metadata: {},
       user_metadata: {
-        full_name: isBrand ? 'Acme Atelier' : isAdmin ? 'Kollavo Operations' : 'Sarthak Kamdi',
+        full_name: isBrand ? 'Acme Atelier' : isAdmin ? 'MAVORA Operations' : 'Sarthak Kamdi',
         username: isBrand ? 'acme_atelier' : isAdmin ? 'admin' : 'sarthak',
         avatar_url: isBrand
           ? 'https://images.unsplash.com/photo-1544816155-12df9643f363?w=120&auto=format&fit=crop&q=80'
@@ -663,7 +663,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const demoProfile: DbProfile = {
       id: demoUser.id,
       username: isBrand ? 'acme_atelier' : isAdmin ? 'admin' : 'sarthak',
-      full_name: isBrand ? 'Acme Atelier' : isAdmin ? 'Kollavo Operations' : 'Sarthak Kamdi',
+      full_name: isBrand ? 'Acme Atelier' : isAdmin ? 'MAVORA Operations' : 'Sarthak Kamdi',
       avatar_url: demoUser.photoURL || null,
       bio: isBrand
         ? 'London based luxury tailoring and leather goods atelier collaborating with international visual directors.'

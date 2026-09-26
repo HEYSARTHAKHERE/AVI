@@ -71,7 +71,7 @@ export const SignupPage: React.FC<SignupPageProps> = ({
       const res = await checkUsernameAvailability(normalized);
       if (res.available) {
         setUsernameStatus('available');
-        setUsernameMessage(`kollavo.com/creator/${normalized} is available`);
+        setUsernameMessage(`mavora.com/creator/${normalized} is available`);
       } else {
         setUsernameStatus('taken');
         setUsernameMessage(res.error || 'That username is already taken.');
@@ -161,7 +161,7 @@ export const SignupPage: React.FC<SignupPageProps> = ({
             className="text-xl font-bold tracking-tight text-[#141416] flex items-center gap-2"
           >
             <span className="w-2.5 h-2.5 rounded-full bg-[#8EA633]"></span>
-            Kollavo
+            MAVORA
           </button>
 
           <div className="text-xs text-[#575762]">
@@ -252,7 +252,7 @@ export const SignupPage: React.FC<SignupPageProps> = ({
                     Build your creator presence.
                   </h1>
                   <p className="mt-1.5 text-xs sm:text-sm text-[#575762]">
-                    Create your Kollavo account and start building your professional creator profile.
+                    Create your MAVORA account and start building your professional creator profile.
                   </p>
                 </div>
 
@@ -439,7 +439,7 @@ export const SignupPage: React.FC<SignupPageProps> = ({
 
       {/* Footer info */}
       <footer className="py-4 text-center text-[11px] text-[#888894] border-t border-[rgba(20,20,22,0.06)]">
-        Kollavo Creator Operating System · Phase 2 Secure Authentication
+        MAVORA Creator Operating System · Phase 2 Secure Authentication
       </footer>
     </div>
   );

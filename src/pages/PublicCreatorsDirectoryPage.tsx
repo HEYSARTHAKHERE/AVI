@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { Search, Filter, CheckCircle2, Globe, Sparkles, ExternalLink, ArrowRight, Eye } from 'lucide-react';
-import { kollavoStore, formatCurrency, Creator } from '../data/kollavoStore';
+import { mavoraStore, formatCurrency, Creator } from '../data/mavoraStore';
 import { useMode } from '../context/ModeContext';
 import { Navbar } from '../components/landing/Navbar';
 import { Footer } from '../components/landing/Footer';
@@ -16,7 +16,7 @@ export const PublicCreatorsDirectoryPage: React.FC<PublicCreatorsDirectoryPagePr
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [selectedCountry, setSelectedCountry] = useState<string>('All');
 
-  const allCreators = kollavoStore.getCreators(isDemoDataEnabled);
+  const allCreators = mavoraStore.getCreators(isDemoDataEnabled);
 
   const categories = ['All', 'Fashion', 'Beauty', 'Technology', 'Lifestyle', 'Photography'];
 

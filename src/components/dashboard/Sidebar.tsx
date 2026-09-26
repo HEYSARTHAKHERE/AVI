@@ -125,13 +125,13 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 className="flex items-center gap-2.5 font-bold text-base tracking-tight text-[var(--color-text-primary)] hover:opacity-85 transition-opacity"
               >
                 <span className="w-2.5 h-2.5 rounded-full bg-[#38BDF8]"></span>
-                <span>Kollavo</span>
+                <span>MAVORA</span>
               </button>
             ) : (
               <button
                 onClick={() => handleLinkClick(isBrand ? '/brand-dashboard' : '/dashboard')}
                 className="w-10 h-10 mx-auto flex items-center justify-center rounded-xl bg-[#0E1626] text-[#38BDF8] font-bold text-sm border border-white/10"
-                title="Kollavo Home"
+                title="MAVORA Home"
               >
                 K
               </button>
@@ -193,10 +193,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 className={`w-full flex items-center rounded-xl text-xs font-semibold text-[#38BDF8] bg-[#38BDF8]/10 hover:bg-[#38BDF8]/20 border border-[#38BDF8]/20 transition-all ${
                   isCollapsed ? 'justify-center p-2.5' : 'px-3 py-2 gap-2.5'
                 }`}
-                title="Ask Kollavo AI Assistant"
+                title="Ask MAVORA AI Assistant"
               >
                 <Sparkles className="w-4 h-4 shrink-0" />
-                {!isCollapsed && <span>Ask Kollavo AI</span>}
+                {!isCollapsed && <span>Ask MAVORA AI</span>}
               </button>
             )}
 

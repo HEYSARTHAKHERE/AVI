@@ -123,7 +123,7 @@ export const OnboardingPreviewModal: React.FC<OnboardingModalProps> = ({
               value={formData.username}
               onChange={(e) => setFormData({ ...formData, username: e.target.value })}
               placeholder="sarthak"
-              helperText={`Your public address: kollavo.com/creator/${formData.username}`}
+              helperText={`Your public address: mavora.com/creator/${formData.username}`}
             />
           </div>
         )}
@@ -170,7 +170,7 @@ export const OnboardingPreviewModal: React.FC<OnboardingModalProps> = ({
                 Connect your social channels
               </h3>
               <p className="text-xs text-[#575762]">
-                Kollavo synchronizes your public follower stats and audience reach.
+                MAVORA synchronizes your public follower stats and audience reach.
               </p>
             </div>
 
@@ -269,7 +269,7 @@ export const OnboardingPreviewModal: React.FC<OnboardingModalProps> = ({
                 You're ready to launch, {formData.name.split(' ')[0]}!
               </h3>
               <p className="mt-1 text-xs text-[#575762] max-w-sm mx-auto">
-                Your profile is initialized at <span className="font-mono text-[#141416] font-semibold">kollavo.com/creator/{formData.username}</span>.
+                Your profile is initialized at <span className="font-mono text-[#141416] font-semibold">mavora.com/creator/{formData.username}</span>.
               </p>
             </div>
 

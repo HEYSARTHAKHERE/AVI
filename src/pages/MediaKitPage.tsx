@@ -50,7 +50,7 @@ export const MediaKitPage: React.FC<MediaKitPageProps> = ({ onNavigate }) => {
               Your media kit, ready to build.
             </h3>
             <p className="text-xs sm:text-sm text-[#575762] leading-relaxed max-w-md mx-auto">
-              A Kollavo media kit transforms your verified follower reach, engagement benchmarks, and commercial service rates into a beautiful 1-page editorial link.
+              A MAVORA media kit transforms your verified follower reach, engagement benchmarks, and commercial service rates into a beautiful 1-page editorial link.
             </p>
           </div>
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { ShieldCheck, HeartHandshake, Eye, Lock, ArrowRight, CheckCircle2 } from 'lucide-react';
-import { FOUNDER_METRICS, PLATFORM_TRACTION } from '../data/kollavoStore';
+import { FOUNDER_METRICS, PLATFORM_TRACTION } from '../data/mavoraStore';
 import { Navbar } from '../components/landing/Navbar';
 import { Footer } from '../components/landing/Footer';
 import { Button } from '../components/ui/Button';
@@ -26,7 +26,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
             Built for Authentic Creative Commerce
           </h1>
           <p className="text-sm sm:text-base text-[var(--color-text-secondary)] leading-relaxed">
-            Kollavo was founded to replace chaotic email threads, unverified agency markups, and delayed creator payouts with an integrated, transparent operating system.
+            MAVORA was founded to replace chaotic email threads, unverified agency markups, and delayed creator payouts with an integrated, transparent operating system.
           </p>
         </div>
 
@@ -63,16 +63,16 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigate }) => {
             Platform Governance & Transparency
           </span>
           <h2 className="text-xl font-bold">
-            Founder Reach vs. Kollavo Platform Metrics
+            Founder Reach vs. MAVORA Platform Metrics
           </h2>
           <p className="text-xs text-[var(--color-text-secondary)] leading-relaxed">
-            In compliance with our strict truth-in-data constitution, founder personal creator community reach ({FOUNDER_METRICS.personalReach}) is strictly segregated from Kollavo platform operational telemetry ({PLATFORM_TRACTION.registeredUsers} registered users, {PLATFORM_TRACTION.completedCollaborations} completed deals). We believe honest foundations build generational platforms.
+            In compliance with our strict truth-in-data constitution, founder personal creator community reach ({FOUNDER_METRICS.personalReach}) is strictly segregated from MAVORA platform operational telemetry ({PLATFORM_TRACTION.registeredUsers} registered users, {PLATFORM_TRACTION.completedCollaborations} completed deals). We believe honest foundations build generational platforms.
           </p>
         </div>
 
         <div className="pt-4 text-center">
           <Button variant="primary" size="lg" onClick={() => onNavigate('/signup')}>
-            <span>Join the Kollavo Ecosystem</span>
+            <span>Join the MAVORA Ecosystem</span>
             <ArrowRight className="w-4 h-4 ml-1.5" />
           </Button>
         </div>

@@ -48,7 +48,7 @@ export const ForgotPasswordPage: React.FC<ForgotPasswordPageProps> = ({ onNaviga
             className="text-xl font-bold tracking-tight text-[#141416] flex items-center gap-2"
           >
             <span className="w-2.5 h-2.5 rounded-full bg-[#8EA633]"></span>
-            Kollavo
+            MAVORA
           </button>
 
           <button
@@ -102,7 +102,7 @@ export const ForgotPasswordPage: React.FC<ForgotPasswordPageProps> = ({ onNaviga
                   Reset your password.
                 </h1>
                 <p className="mt-1.5 text-xs sm:text-sm text-[#575762]">
-                  Enter the email associated with your Kollavo account and we'll send you a password reset link.
+                  Enter the email associated with your MAVORA account and we'll send you a password reset link.
                 </p>
               </div>
 
@@ -166,7 +166,7 @@ export const ForgotPasswordPage: React.FC<ForgotPasswordPageProps> = ({ onNaviga
       </main>
 
       <footer className="py-4 text-center text-[11px] text-[#888894] border-t border-[rgba(20,20,22,0.06)]">
-        Kollavo Creator Operating System · Phase 2 Secure Authentication
+        MAVORA Creator Operating System · Phase 2 Secure Authentication
       </footer>
     </div>
   );

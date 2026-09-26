@@ -117,7 +117,7 @@ export async function exportToGoogleSheets(title: string, headers: string[], row
     const createData = await callGoogleApi('https://sheets.googleapis.com/v4/spreadsheets', {
       method: 'POST',
       body: JSON.stringify({
-        properties: { title: `Kollavo - ${title} (${new Date().toLocaleDateString()})` },
+        properties: { title: `MAVORA - ${title} (${new Date().toLocaleDateString()})` },
       }),
     });
 
@@ -159,7 +159,7 @@ export async function createCampaignIntakeForm(campaignTitle: string, brandName:
       body: JSON.stringify({
         info: {
           title: `${campaignTitle} — Creator Application`,
-          documentTitle: `Kollavo - ${campaignTitle}`,
+          documentTitle: `MAVORA - ${campaignTitle}`,
         },
       }),
     });

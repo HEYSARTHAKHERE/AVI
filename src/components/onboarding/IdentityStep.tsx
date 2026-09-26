@@ -50,7 +50,7 @@ export const IdentityStep: React.FC<IdentityStepProps> = ({
       const res = await checkUsernameAvailability(normalized, currentUserId);
       if (res.available) {
         setUsernameStatus('available');
-        setStatusMessage(`kollavo.com/creator/${normalized} is available`);
+        setStatusMessage(`mavora.com/creator/${normalized} is available`);
         onValidChange(Boolean(fullName.trim().length >= 2));
       } else {
         setUsernameStatus('taken');
@@ -83,7 +83,7 @@ export const IdentityStep: React.FC<IdentityStepProps> = ({
           Let's build your creator identity.
         </h2>
         <p className="mt-2 text-sm text-[#575762] leading-relaxed">
-          This is how brands and people will recognize you on Kollavo.
+          This is how brands and people will recognize you on MAVORA.
         </p>
       </div>
 
@@ -155,7 +155,7 @@ export const IdentityStep: React.FC<IdentityStepProps> = ({
           <LinkIcon className="w-3.5 h-3.5 text-[#8EA633]" />
           <span>Your shareable profile address:</span>
           <span className="font-mono font-semibold text-[#141416]">
-            kollavo.com/creator/{username || 'yourname'}
+            mavora.com/creator/{username || 'yourname'}
           </span>
         </div>
       </div>

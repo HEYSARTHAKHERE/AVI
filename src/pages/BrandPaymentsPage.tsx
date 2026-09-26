@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { DollarSign, ShieldCheck, ArrowUpRight, Lock, CheckCircle2, Clock } from 'lucide-react';
 import { DashboardLayout } from '../components/dashboard/DashboardLayout';
-import { kollavoStore, formatCurrency } from '../data/kollavoStore';
+import { mavoraStore, formatCurrency } from '../data/mavoraStore';
 import { useMode } from '../context/ModeContext';
 import { Button } from '../components/ui/Button';
 
@@ -11,8 +11,8 @@ interface BrandPaymentsPageProps {
 
 export const BrandPaymentsPage: React.FC<BrandPaymentsPageProps> = ({ onNavigate }) => {
   const { isDemoDataEnabled, activeCurrency } = useMode();
-  const collaborations = kollavoStore.getCollaborations(isDemoDataEnabled);
-  const ledger = kollavoStore.getLedger(isDemoDataEnabled);
+  const collaborations = mavoraStore.getCollaborations(isDemoDataEnabled);
+  const ledger = mavoraStore.getLedger(isDemoDataEnabled);
 
   const totalInEscrow = 2800;
   const totalCompletedPaid = 14200;

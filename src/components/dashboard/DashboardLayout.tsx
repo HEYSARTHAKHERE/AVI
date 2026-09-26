@@ -3,7 +3,7 @@ import { Sidebar } from './Sidebar';
 import { DashboardHeader } from './DashboardHeader';
 import { GlobalSearchModal } from './GlobalSearchModal';
 import { GoogleWorkspaceModal } from '../workspace/GoogleWorkspaceModal';
-import { KollavoAiModal } from '../ai/KollavoAiModal';
+import { MAVORAAiModal } from '../ai/MAVORAAiModal';
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
@@ -12,7 +12,7 @@ interface DashboardLayoutProps {
   onNavigate: (path: string) => void;
 }
 
-const SIDEBAR_STATE_KEY = 'kollavo_sidebar_collapsed';
+const SIDEBAR_STATE_KEY = 'mavora_sidebar_collapsed';
 
 export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
   children,
@@ -97,7 +97,7 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
 
         {/* Quiet Dashboard Footer */}
         <footer className="py-4 px-6 text-center text-[11px] text-[#888894] border-t border-[rgba(20,20,22,0.06)]">
-          Kollavo Creator Operating System · Phase 4 Workspace
+          MAVORA Creator Operating System · Phase 4 Workspace
         </footer>
       </div>
 
@@ -114,8 +114,8 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
         onClose={() => setWorkspaceOpen(false)}
       />
 
-      {/* Kollavo AI Assistant Modal */}
-      <KollavoAiModal
+      {/* MAVORA AI Assistant Modal */}
+      <MAVORAAiModal
         isOpen={aiOpen}
         onClose={() => setAiOpen(false)}
       />

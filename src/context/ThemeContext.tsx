@@ -10,7 +10,7 @@ interface ThemeContextType {
   toggleTheme: () => void;
 }
 
-const THEME_STORAGE_KEY = 'kollavo_theme_preference';
+const THEME_STORAGE_KEY = 'mavora_theme_preference';
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 

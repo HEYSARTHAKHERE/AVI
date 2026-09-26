@@ -53,7 +53,7 @@ export const ClaimUsernameCTA: React.FC<ClaimUsernameCTAProps> = ({ onClaimUsern
         >
           <div className="flex flex-col sm:flex-row items-stretch gap-2 bg-[#252529] p-2 rounded-2xl border border-white/10 shadow-lg">
             <div className="flex items-center flex-1 px-3 py-2 bg-transparent text-sm">
-              <span className="text-[#888894] font-mono select-none">kollavo.com/creator/</span>
+              <span className="text-[#888894] font-mono select-none">mavora.com/creator/</span>
               <input
                 type="text"
                 value={username}
@@ -80,7 +80,7 @@ export const ClaimUsernameCTA: React.FC<ClaimUsernameCTAProps> = ({ onClaimUsern
           {username.length >= 3 && (
             <div className="mt-3 flex items-center justify-center gap-1.5 text-xs text-[#8EA633]">
               <Check className="w-3.5 h-3.5" />
-              <span>kollavo.com/creator/{username} is available!</span>
+              <span>mavora.com/creator/{username} is available!</span>
             </div>
           )}
         </form>
